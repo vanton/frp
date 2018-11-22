@@ -134,21 +134,21 @@ func (pl *PrefixLogger) ClearLogPrefix() {
 }
 
 func (pl *PrefixLogger) Error(format string, v ...interface{}) {
-	Log.Error(pl.prefix+format, v...)
+	Log.Error("\033[41;37m"+pl.prefix+format+"\033[0m", v...)
 }
 
 func (pl *PrefixLogger) Warn(format string, v ...interface{}) {
-	Log.Warn(pl.prefix+format, v...)
+	Log.Warn("\033[31m"+pl.prefix+format+"\033[0m", v...)
 }
 
 func (pl *PrefixLogger) Info(format string, v ...interface{}) {
-	Log.Info(pl.prefix+format, v...)
+	Log.Info("\033[32m"+pl.prefix+format+"\033[0m", v...)
 }
 
 func (pl *PrefixLogger) Debug(format string, v ...interface{}) {
-	Log.Debug(pl.prefix+format, v...)
+	Log.Debug(pl.prefix+format+"\033[0m", v...)
 }
 
 func (pl *PrefixLogger) Trace(format string, v ...interface{}) {
-	Log.Trace(pl.prefix+format, v...)
+	Log.Trace("\033[33m"+pl.prefix+format+"\033[0m", v...)
 }

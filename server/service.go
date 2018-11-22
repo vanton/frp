@@ -316,8 +316,10 @@ func (svr *Service) HandleListener(l frpNet.Listener) {
 }
 
 func (svr *Service) RegisterControl(ctlConn frpNet.Conn, loginMsg *msg.Login) (err error) {
+	// NOTE IP
+	IP := ctlConn.RemoteAddr().String()
 	ctlConn.Info("client login info: ip [%s] version [%s] hostname [%s] os [%s] arch [%s]",
-		ctlConn.RemoteAddr().String(), loginMsg.Version, loginMsg.Hostname, loginMsg.Os, loginMsg.Arch)
+		IP, loginMsg.Version, loginMsg.Hostname, loginMsg.Os, loginMsg.Arch)
 
 	// Check client version.
 	if ok, msg := version.Compat(loginMsg.Version); !ok {
@@ -345,7 +347,8 @@ func (svr *Service) RegisterControl(ctlConn frpNet.Conn, loginMsg *msg.Login) (e
 		}
 	}
 
-	ctl := NewControl(svr, ctlConn, loginMsg)
+	// NOTE IP
+	ctl := NewControl(svr, ctlConn, loginMsg, IP)
 
 	if oldCtl := svr.ctlManager.Add(loginMsg.RunId, ctl); oldCtl != nil {
 		oldCtl.allShutdown.WaitDone()

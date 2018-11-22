@@ -44,6 +44,9 @@ type Control struct {
 	// control connection
 	conn net.Conn
 
+	// NOTE IP
+	IP string
+
 	// put a message in this channel to send it over control connection to client
 	sendCh chan (msg.Message)
 
@@ -81,10 +84,12 @@ type Control struct {
 	mu sync.RWMutex
 }
 
-func NewControl(svr *Service, ctlConn net.Conn, loginMsg *msg.Login) *Control {
+func NewControl(svr *Service, ctlConn net.Conn, loginMsg *msg.Login, IP string) *Control {
+	// NOTE IP
 	return &Control{
 		svr:             svr,
 		conn:            ctlConn,
+		IP:              IP,
 		loginMsg:        loginMsg,
 		sendCh:          make(chan msg.Message, 10),
 		readCh:          make(chan msg.Message, 10),
@@ -333,7 +338,7 @@ func (ctl *Control) manager() {
 				} else {
 					resp.RemoteAddr = remoteAddr
 					ctl.conn.Info("new proxy [%s] success", m.ProxyName)
-					StatsNewProxy(m.ProxyName, m.ProxyType)
+					StatsNewProxy(m.ProxyName, m.ProxyType, ctl.conn.RemoteAddr().String())
 				}
 				ctl.sendCh <- resp
 			case *msg.CloseProxy:
