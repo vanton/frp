@@ -94,4 +94,11 @@ class StcpProxy extends BaseProxy {
     }
 }
 
-export {BaseProxy, TcpProxy, UdpProxy, HttpProxy, HttpsProxy, StcpProxy}
+export {
+    BaseProxy,
+    TcpProxy,
+    UdpProxy,
+    HttpProxy,
+    HttpsProxy,
+    StcpProxy
+}
