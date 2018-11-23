@@ -30,7 +30,7 @@
   revision = "e75332964ef517daa070d7c38a9466a0d687e0a5"
 
 [[constraint]]
-  name = "github.com/fatedier/beego"
+  name = "github.com/vanton/beego"
   revision = "6c6a4f5bd5eb5a39f7e289b8f345b55f75e7e3e8"
 
 [[constraint]]
