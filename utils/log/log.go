@@ -17,7 +17,7 @@ package log
 import (
 	"fmt"
 
-	"github.com/astaxie/beego/logs"
+	"github.com/fatedier/beego/logs"
 )
 
 var Log *logs.BeeLogger
@@ -154,17 +154,17 @@ func (pl *PrefixLogger) Error(format string, v ...interface{}) {
 }
 
 func (pl *PrefixLogger) Warn(format string, v ...interface{}) {
-	Log.Warn(red+pl.prefix+format+cle, v...)
+	Log.Warn(red+pl.prefix+format+cle, v...) // red
 }
 
 func (pl *PrefixLogger) Info(format string, v ...interface{}) {
-	Log.Info(gre+pl.prefix+format+cle, v...)
+	Log.Info(gre+pl.prefix+format+cle, v...) // green
 }
 
 func (pl *PrefixLogger) Debug(format string, v ...interface{}) {
-	Log.Debug(und+pl.prefix+format+cle, v...)
+	Log.Debug(und+pl.prefix+format+cle, v...) //underline
 }
 
 func (pl *PrefixLogger) Trace(format string, v ...interface{}) {
-	Log.Trace(yel+pl.prefix+format+cle, v...)
+	Log.Trace(yel+pl.prefix+format+cle, v...) //yellow
 }
