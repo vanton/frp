@@ -18,9 +18,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/fatedier/frp/g"
-	"github.com/fatedier/frp/utils/log"
-	"github.com/fatedier/frp/utils/metric"
+	"github.com/vanton/frp/g"
+	"github.com/vanton/frp/utils/log"
+	"github.com/vanton/frp/utils/metric"
 )
 
 const (

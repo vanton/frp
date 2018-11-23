@@ -18,11 +18,11 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/fatedier/frp/g"
-	"github.com/fatedier/frp/models/config"
-	"github.com/fatedier/frp/models/consts"
-	"github.com/fatedier/frp/utils/log"
-	"github.com/fatedier/frp/utils/version"
+	"github.com/vanton/frp/g"
+	"github.com/vanton/frp/models/config"
+	"github.com/vanton/frp/models/consts"
+	"github.com/vanton/frp/utils/log"
+	"github.com/vanton/frp/utils/version"
 
 	"github.com/gorilla/mux"
 )

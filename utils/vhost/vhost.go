@@ -18,8 +18,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/fatedier/frp/utils/log"
-	frpNet "github.com/fatedier/frp/utils/net"
+	"github.com/vanton/frp/utils/log"
+	frpNet "github.com/vanton/frp/utils/net"
 
 	"github.com/fatedier/golib/errors"
 )

@@ -15,9 +15,9 @@
 package client
 
 import (
-	"github.com/fatedier/frp/g"
-	"github.com/fatedier/frp/models/config"
-	"github.com/fatedier/frp/utils/log"
+	"github.com/vanton/frp/g"
+	"github.com/vanton/frp/models/config"
+	"github.com/vanton/frp/utils/log"
 )
 
 type Service struct {

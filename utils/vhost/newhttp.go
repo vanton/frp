@@ -25,7 +25,7 @@ import (
 	"sync"
 	"time"
 
-	frpLog "github.com/fatedier/frp/utils/log"
+	frpLog "github.com/vanton/frp/utils/log"
 
 	"github.com/fatedier/golib/pool"
 )

@@ -23,14 +23,14 @@ import (
 	"sync"
 	"time"
 
-	"github.com/fatedier/frp/g"
-	"github.com/fatedier/frp/models/config"
-	"github.com/fatedier/frp/models/msg"
-	"github.com/fatedier/frp/models/proto/udp"
-	"github.com/fatedier/frp/utils/log"
-	frpNet "github.com/fatedier/frp/utils/net"
-	"github.com/fatedier/frp/utils/util"
-	"github.com/fatedier/frp/utils/vhost"
+	"github.com/vanton/frp/g"
+	"github.com/vanton/frp/models/config"
+	"github.com/vanton/frp/models/msg"
+	"github.com/vanton/frp/models/proto/udp"
+	"github.com/vanton/frp/utils/log"
+	frpNet "github.com/vanton/frp/utils/net"
+	"github.com/vanton/frp/utils/util"
+	"github.com/vanton/frp/utils/vhost"
 
 	"github.com/fatedier/golib/errors"
 	frpIo "github.com/fatedier/golib/io"
@@ -84,7 +84,7 @@ func (pxy *BaseProxy) GetWorkConnFromPool() (workConn frpNet.Conn, err error) {
 			pxy.Warn("failed to get work connection: %v", err)
 			return
 		}
-		pxy.Info("get a new work connection: [%s]", workConn.RemoteAddr().String())
+		pxy.Trace("get a new work connection: [%s]", workConn.RemoteAddr().String())
 		workConn.AddLogPrefix(pxy.GetName())
 
 		err := msg.WriteMsg(workConn, &msg.StartWorkConn{

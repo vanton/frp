@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/fatedier/frp/models/config"
-	"github.com/fatedier/frp/models/msg"
-	"github.com/fatedier/frp/utils/log"
-	frpNet "github.com/fatedier/frp/utils/net"
+	"github.com/vanton/frp/models/config"
+	"github.com/vanton/frp/models/msg"
+	"github.com/vanton/frp/utils/log"
+	frpNet "github.com/vanton/frp/utils/net"
 
 	"github.com/fatedier/golib/errors"
 )
@@ -297,7 +297,7 @@ func (pm *ProxyManager) Reload(pxyCfgs map[string]config.ProxyConf, visitorCfgs 
 			}
 		}
 	}
-	pm.Info("proxy removed: %v", delPxyNames)
+	pm.Warn("proxy removed: %v", delPxyNames)
 
 	addPxyNames := make([]string, 0)
 	for name, cfg := range pxyCfgs {
@@ -330,7 +330,7 @@ func (pm *ProxyManager) Reload(pxyCfgs map[string]config.ProxyConf, visitorCfgs 
 			delete(pm.visitors, name)
 		}
 	}
-	pm.Info("visitor removed: %v", delVisitorName)
+	pm.Warn("visitor removed: %v", delVisitorName)
 
 	addVisitorName := make([]string, 0)
 	for name, visitorCfg := range visitorCfgs {
