@@ -1,6 +1,7 @@
 class BaseProxy {
     constructor(proxyStats) {
         this.name = proxyStats.name
+        this.IP = proxyStats.IP
         if (proxyStats.conf != null) {
             this.encryption = proxyStats.conf.use_encryption
             this.compression = proxyStats.conf.use_compression
@@ -22,7 +23,7 @@ class TcpProxy extends BaseProxy {
         super(proxyStats)
         this.type = "tcp"
         if (proxyStats.conf != null) {
-            this.addr = proxyStats.IP.split(":")[0] + ":" + proxyStats.conf.remote_port
+            this.addr = this.IP
             this.port = proxyStats.conf.remote_port
         } else {
             this.addr = ""
@@ -36,7 +37,7 @@ class UdpProxy extends BaseProxy {
         super(proxyStats)
         this.type = "udp"
         if (proxyStats.conf != null) {
-            this.addr = proxyStats.IP.split(":")[0] + ":" + proxyStats.conf.remote_port
+            this.addr = this.IP
             this.port = proxyStats.conf.remote_port
         } else {
             this.addr = ""

@@ -24,6 +24,9 @@
             <el-form-item label="Addr">
               <span>{{ props.row.addr }}</span>
             </el-form-item>
+            <el-form-item label="Port">
+              <span>{{ props.row.port }}</span>
+            </el-form-item>
             <el-form-item label="Encryption">
               <span>{{ props.row.encryption }}</span>
             </el-form-item>
