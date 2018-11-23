@@ -1,8 +1,19 @@
 export PATH := $(GOPATH)/bin:$(PATH)
+LDFLAGS := -s -w
 
-all: fmt build
+all: build
 
-build: frps frpc
+build: app
+
+app:
+	env CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o ./bin/darwin_amd64/frpc ./cmd/frpc
+	env CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o ./bin/darwin_amd64/frps ./cmd/frps
+	env CGO_ENABLED=0 GOOS=linux  GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o ./bin/linux_amd64/frpc ./cmd/frpc
+	env CGO_ENABLED=0 GOOS=linux  GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o ./bin/linux_amd64/frps ./cmd/frps
+	env CGO_ENABLED=0 GOOS=linux  GOARCH=arm64 go build -ldflags "$(LDFLAGS)" -o ./bin/linux_arm64/frpc ./cmd/frpc
+
+temp:
+	env CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o ./frps_linux_amd64 ./cmd/frps
 
 # compile assets into binary file
 file:
@@ -13,37 +24,10 @@ file:
 	rm -rf ./assets/statik
 	go generate ./assets/...
 
-fmt:
-	go fmt ./...
-	
-frps:
-	go build -o bin/frps ./cmd/frps
-	@cp -rf ./assets/static ./bin
-
-frpc:
-	go build -o bin/frpc ./cmd/frpc
-
-test: gotest
-
-gotest:
-	go test -v ./assets/...
-	go test -v ./client/...
-	go test -v ./cmd/...
-	go test -v ./models/...
-	go test -v ./server/...
-	go test -v ./utils/...
-
-ci:
-	cd ./tests && ./run_test.sh && cd -
-	go test -v ./tests/...
-	cd ./tests && ./clean_test.sh && cd -
-
-cic:
-	cd ./tests && ./clean_test.sh && cd -
-
-alltest: gotest ci
-	
 clean:
+	rm -fr ./bin/darwin_amd64
+	rm -fr ./bin/linux_amd64
+	rm -fr ./bin/linux_arm64
 	rm -f ./bin/frpc
 	rm -f ./bin/frps
 	cd ./tests && ./clean_test.sh && cd -

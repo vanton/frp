@@ -222,7 +222,7 @@ func (ctl *Control) writer() {
 	}
 	for {
 		if m, ok := <-ctl.sendCh; !ok {
-			ctl.conn.Info("control writer is closing")
+			ctl.conn.Warn("control writer is closing")
 			return
 		} else {
 			if err := msg.WriteMsg(encWriter, m); err != nil {

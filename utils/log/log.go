@@ -22,6 +22,22 @@ import (
 
 var Log *logs.BeeLogger
 
+var red = "\033[31m" // red     #c33
+var gre = "\033[32m" // green   #3c3
+var yel = "\033[33m" // yellow  #cc3
+var blu = "\033[34m" // blue    #33c
+var mag = "\033[35m" // magenta #c3c
+var cya = "\033[36m" // cyan    #3cc
+var whi = "\033[37m" // white   #ccc
+var cle = "\033[0m"  // clear
+
+var reD = "\033[4;31m"  // red underline   #c33
+var grE = "\033[4;32m"  // green underline #3c3
+var RED = "\033[41;37m" // white on red    #ccc #c33
+var BLU = "\033[44;37m" // white on blue   #ccc #33c
+var bol = "\033[1m"     // bold
+var und = "\033[4m"     // underline
+
 func init() {
 	Log = logs.NewLogger(200)
 	Log.EnableFuncCallDepth(true)
@@ -134,21 +150,21 @@ func (pl *PrefixLogger) ClearLogPrefix() {
 }
 
 func (pl *PrefixLogger) Error(format string, v ...interface{}) {
-	Log.Error("\033[41;37m"+pl.prefix+format+"\033[0m", v...)
+	Log.Error(RED+pl.prefix+format+cle, v...)
 }
 
 func (pl *PrefixLogger) Warn(format string, v ...interface{}) {
-	Log.Warn("\033[31m"+pl.prefix+format+"\033[0m", v...)
+	Log.Warn(red+pl.prefix+format+cle, v...)
 }
 
 func (pl *PrefixLogger) Info(format string, v ...interface{}) {
-	Log.Info("\033[32m"+pl.prefix+format+"\033[0m", v...)
+	Log.Info(gre+pl.prefix+format+cle, v...)
 }
 
 func (pl *PrefixLogger) Debug(format string, v ...interface{}) {
-	Log.Debug(pl.prefix+format+"\033[0m", v...)
+	Log.Debug(und+pl.prefix+format+cle, v...)
 }
 
 func (pl *PrefixLogger) Trace(format string, v ...interface{}) {
-	Log.Trace("\033[33m"+pl.prefix+format+"\033[0m", v...)
+	Log.Trace(yel+pl.prefix+format+cle, v...)
 }
