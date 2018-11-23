@@ -12,8 +12,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/fatedier/frp/client"
-	frpNet "github.com/fatedier/frp/utils/net"
+	"github.com/vanton/frp/client"
+	frpNet "github.com/vanton/frp/utils/net"
 )
 
 func getProxyStatus(name string) (status *client.ProxyStatusResp, err error) {

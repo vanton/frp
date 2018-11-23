@@ -11,8 +11,8 @@ import (
 	"github.com/gorilla/websocket"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/fatedier/frp/client"
-	"github.com/fatedier/frp/server/ports"
+	"github.com/vanton/frp/client"
+	"github.com/vanton/frp/server/ports"
 
 	gnet "github.com/fatedier/golib/net"
 )

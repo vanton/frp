@@ -25,8 +25,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/fatedier/frp/client"
-	"github.com/fatedier/frp/g"
+	"github.com/vanton/frp/client"
+	"github.com/vanton/frp/g"
 )
 
 func init() {
