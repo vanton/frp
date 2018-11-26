@@ -1,37 +1,44 @@
 export PATH := $(GOPATH)/bin:$(PATH)
 LDFLAGS := -s -w
 
-all: build
+all: fmt build
 
-build: app
+build: frps frpc app
+
+# compile assets into binary file
+file:
+	rm -rf ./assets/static/*
+	cp -rf ./web/frps/dist/* ./assets/static
+	go get -d github.com/rakyll/statik
+	go install github.com/rakyll/statik
+	rm -rf ./assets/statik
+	go generate ./assets/...
+
+fmt:
+	go fmt ./...
+
+frps:
+	go build -o bin/frps ./cmd/frps
+	@cp -rf ./assets/static ./bin
+
+frpc:
+	go build -o bin/frpc ./cmd/frpc
 
 app:
-	env CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o ./frpc_darwin_amd64 ./cmd/frpc
-	env CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o ./frps_darwin_amd64 ./cmd/frps
-	env CGO_ENABLED=0 GOOS=freebsd GOARCH=386 go build -ldflags "$(LDFLAGS)" -o ./frpc_freebsd_386 ./cmd/frpc
-	env CGO_ENABLED=0 GOOS=freebsd GOARCH=386 go build -ldflags "$(LDFLAGS)" -o ./frps_freebsd_386 ./cmd/frps
-	env CGO_ENABLED=0 GOOS=freebsd GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o ./frpc_freebsd_amd64 ./cmd/frpc
-	env CGO_ENABLED=0 GOOS=freebsd GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o ./frps_freebsd_amd64 ./cmd/frps
-	env CGO_ENABLED=0 GOOS=linux GOARCH=386 go build -ldflags "$(LDFLAGS)" -o ./frpc_linux_386 ./cmd/frpc
-	env CGO_ENABLED=0 GOOS=linux GOARCH=386 go build -ldflags "$(LDFLAGS)" -o ./frps_linux_386 ./cmd/frps
-	env CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o ./frpc_linux_amd64 ./cmd/frpc
-	env CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o ./frps_linux_amd64 ./cmd/frps
-	env CGO_ENABLED=0 GOOS=linux GOARCH=arm go build -ldflags "$(LDFLAGS)" -o ./frpc_linux_arm ./cmd/frpc
-	env CGO_ENABLED=0 GOOS=linux GOARCH=arm go build -ldflags "$(LDFLAGS)" -o ./frps_linux_arm ./cmd/frps
-	env CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -ldflags "$(LDFLAGS)" -o ./frpc_linux_arm64 ./cmd/frpc
-	env CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -ldflags "$(LDFLAGS)" -o ./frps_linux_arm64 ./cmd/frps
-	env CGO_ENABLED=0 GOOS=windows GOARCH=386 go build -ldflags "$(LDFLAGS)" -o ./frpc_windows_386.exe ./cmd/frpc
-	env CGO_ENABLED=0 GOOS=windows GOARCH=386 go build -ldflags "$(LDFLAGS)" -o ./frps_windows_386.exe ./cmd/frps
-	env CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o ./frpc_windows_amd64.exe ./cmd/frpc
-	env CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o ./frps_windows_amd64.exe ./cmd/frps
-	env CGO_ENABLED=0 GOOS=linux GOARCH=mips64 go build -ldflags "$(LDFLAGS)" -o ./frpc_linux_mips64 ./cmd/frpc
-	env CGO_ENABLED=0 GOOS=linux GOARCH=mips64 go build -ldflags "$(LDFLAGS)" -o ./frps_linux_mips64 ./cmd/frps
-	env CGO_ENABLED=0 GOOS=linux GOARCH=mips64le go build -ldflags "$(LDFLAGS)" -o ./frpc_linux_mips64le ./cmd/frpc
-	env CGO_ENABLED=0 GOOS=linux GOARCH=mips64le go build -ldflags "$(LDFLAGS)" -o ./frps_linux_mips64le ./cmd/frps
-	env CGO_ENABLED=0 GOOS=linux GOARCH=mips GOMIPS=softfloat go build -ldflags "$(LDFLAGS)" -o ./frpc_linux_mips ./cmd/frpc
-	env CGO_ENABLED=0 GOOS=linux GOARCH=mips GOMIPS=softfloat go build -ldflags "$(LDFLAGS)" -o ./frps_linux_mips ./cmd/frps
-	env CGO_ENABLED=0 GOOS=linux GOARCH=mipsle GOMIPS=softfloat go build -ldflags "$(LDFLAGS)" -o ./frpc_linux_mipsle ./cmd/frpc
-	env CGO_ENABLED=0 GOOS=linux GOARCH=mipsle GOMIPS=softfloat go build -ldflags "$(LDFLAGS)" -o ./frps_linux_mipsle ./cmd/frps
+	env CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o ./bin/darwin_amd64/frpc ./cmd/frpc
+	env CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o ./bin/darwin_amd64/frps ./cmd/frps
+	env CGO_ENABLED=0 GOOS=linux  GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o ./bin/linux_amd64/frpc ./cmd/frpc
+	env CGO_ENABLED=0 GOOS=linux  GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o ./bin/linux_amd64/frps ./cmd/frps
+	env CGO_ENABLED=0 GOOS=linux  GOARCH=arm64 go build -ldflags "$(LDFLAGS)" -o ./bin/linux_arm64/frpc ./cmd/frpc
+	cp ./bin/linux_amd64/frpc ~/works/frp/frpc/frpc && cp ./bin/linux_amd64/frps ~/works/frp/frps/frps
 
 temp:
 	env CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o ./frps_linux_amd64 ./cmd/frps
+
+clean:
+	rm -fr ./bin/darwin_amd64
+	rm -fr ./bin/linux_amd64
+	rm -fr ./bin/linux_arm64
+	rm -f ./bin/frpc
+	rm -f ./bin/frps
+	cd ./tests && ./clean_test.sh && cd -

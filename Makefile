@@ -3,7 +3,8 @@ LDFLAGS := -s -w
 
 all: fmt build
 
-build: frps frpc app
+# build: frps frpc app
+build: frpc
 
 # compile assets into binary file
 file:
