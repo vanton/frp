@@ -70,7 +70,7 @@ func (pxy *BaseProxy) GetUsedPortsNum() int {
 }
 
 func (pxy *BaseProxy) Close() {
-	pxy.Info("proxy closing")
+	pxy.Trace("proxy closing")
 	for _, l := range pxy.listeners {
 		l.Close()
 	}
@@ -116,7 +116,7 @@ func (pxy *BaseProxy) startListenHandler(p Proxy, handler func(Proxy, frpNet.Con
 				// if listener is closed, err returned
 				c, err := l.Accept()
 				if err != nil {
-					pxy.Info("listener is closed")
+					pxy.Warn("listener is closed")
 					return
 				}
 				pxy.Debug("get a user connection [%s]", c.RemoteAddr().String())
