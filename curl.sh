@@ -23,18 +23,19 @@ und="\\033[4m"     # underline
 filter=$(seq -s '=' 1 120 | tr -dc '=')
 beginline="${gre}${filter}${cle}\\n"
 line="${blu}${filter}${cle}\\n"
-endline="${red}${filter}${cle}"
+endline="\\n${red}${filter}${cle}"
 
 # source /Users/vanton/works/hhighlighter/h.sh
 
 h() {
 	param=(
-		"/ip/"
+		"var.*"
+		"Server:.*"
+		"Content-Type:.*"
 		"Ping"
+		"GET"
 		"Traceroute"
-		"Connection:"
 		"Location:"
-		"Server:"
 		"Connection refused"
 		"Connection failed"
 		"HTTP/1.1 200 OK"
@@ -42,7 +43,7 @@ h() {
 		"HTTP/1.1 400 Bad Request"
 		"HTTP/1.1 500 Internal Server Error"
 	)
-	_OPTS=" -iQ "
+	_OPTS=" -i "
 	n_flag=
 
 	# set zsh compatibility
@@ -136,7 +137,8 @@ echo -e "${beginline}"
 # curl -x 139.196.120.46:26132 -IL http://ipip.net/ip.html | h
 echo -e "# ${RED}(Android) 139.196.120.46:20124${cle}"
 # curl -x 139.196.120.46:20124 -IL http://ipip.net/ip.html | h
-curl -x 139.196.120.46:20124 -vL https://pv.sohu.com/cityjson?ie=utf-8 | h
+curl -x 139.196.120.46:20124 -Lv -D - https://pv.sohu.com/cityjson?ie=utf-8 | h
+# curl -x 139.196.120.46:20124 -Lv -D - http://139.224.131.59/1.php | h
 
 # ?? 0.99
 # echo -e "${line}"
