@@ -8,8 +8,9 @@
         <section>
             <el-row :gutter="20">
                 <el-col id="side-nav" :xs="24" :md="4">
-                    <el-menu default-active="1" mode="vertical" theme="dark" router="false" @select="handleSelect">
+                    <el-menu default-active="1" mode="vertical" theme="light" router="false" @select="handleSelect">
                         <el-menu-item index="/">Overview</el-menu-item>
+                        <el-menu-item index="/devices">Devices</el-menu-item>
                         <el-submenu index="/proxies">
                             <template slot="title">Proxies</template>
                             <el-menu-item index="/proxies/tcp">TCP</el-menu-item>

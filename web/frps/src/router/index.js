@@ -1,3 +1,4 @@
+import Devices from '../components/Devices.vue'
 import Overview from '../components/Overview.vue'
 import ProxiesHttp from '../components/ProxiesHttp.vue'
 import ProxiesHttps from '../components/ProxiesHttps.vue'
@@ -14,6 +15,10 @@ export default new Router({
         path: '/',
         name: 'Overview',
         component: Overview
+    }, {
+        path: '/devices',
+        name: 'Devices',
+        component: Devices
     }, {
         path: '/proxies/tcp',
         name: 'ProxiesTcp',
