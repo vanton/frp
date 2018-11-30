@@ -1,37 +1,43 @@
 <template>
-    <div id="app">
-        <header class="grid-content header-color">
-            <el-row>
-                <a class="brand" href="#">frp</a>
-            </el-row>
-        </header>
-        <section>
-            <el-row :gutter="20">
-                <el-col id="side-nav" :xs="24" :md="4">
-                    <el-menu default-active="1" mode="vertical" theme="light" router="false" @select="handleSelect">
-                        <el-menu-item index="/">Overview</el-menu-item>
-                        <el-menu-item index="/devices">Devices</el-menu-item>
-                        <el-submenu index="/proxies">
-                            <template slot="title">Proxies</template>
-                            <el-menu-item index="/proxies/tcp">TCP</el-menu-item>
-                            <el-menu-item index="/proxies/udp">UDP</el-menu-item>
-                            <el-menu-item index="/proxies/http">HTTP</el-menu-item>
-                            <el-menu-item index="/proxies/https">HTTPS</el-menu-item>
-                            <el-menu-item index="/proxies/stcp">STCP</el-menu-item>
-                        </el-submenu>
-                        <el-menu-item index="">Help</el-menu-item>
-                    </el-menu>
-				</el-col>
+  <div id="app">
+    <header class="grid-content header-color">
+      <el-row>
+        <a class="brand" href="#">frps dashboard</a>
+      </el-row>
+    </header>
+    <section>
+      <el-row :gutter="20">
+        <el-col id="side-nav" :xs="24" :md="4">
+          <el-menu
+            default-active="1"
+            mode="vertical"
+            theme="light"
+            router="false"
+            @select="handleSelect"
+          >
+            <el-menu-item index="/">Overview</el-menu-item>
+            <el-menu-item index="/devices">Devices</el-menu-item>
+            <el-submenu index="/proxies">
+              <template slot="title">Proxies</template>
+              <el-menu-item index="/proxies/tcp">TCP</el-menu-item>
+              <el-menu-item index="/proxies/udp">UDP</el-menu-item>
+              <el-menu-item index="/proxies/http">HTTP</el-menu-item>
+              <el-menu-item index="/proxies/https">HTTPS</el-menu-item>
+              <el-menu-item index="/proxies/stcp">STCP</el-menu-item>
+            </el-submenu>
+            <el-menu-item index>Help</el-menu-item>
+          </el-menu>
+        </el-col>
 
-				<el-col :xs="24" :md="20">
-                    <div id="content">
-                    <router-view></router-view>
-                    </div>
-				</el-col>
-		</el-row>
-	</section>
-	<footer></footer>
-</div>
+        <el-col :xs="24" :md="20">
+          <div id="content">
+            <router-view></router-view>
+          </div>
+        </el-col>
+      </el-row>
+    </section>
+    <footer></footer>
+  </div>
 </template>
 
 <script>

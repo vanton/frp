@@ -186,16 +186,20 @@ export default {
 
 <style>
 .cell_danger div {
-  color: #f56c6c;
+  color: #f39;
+  text-decoration: underline dotted;
 }
-.cell_waring div {
-  color: #e6a23c;
+.cell_warning div {
+  color: #f93;
+  text-decoration: underline dotted;
 }
 .cell_normal div {
-  color: #409eff;
+  color: #39f;
+  text-decoration: underline dotted;
 }
 .cell_success div {
-  color: #67c23a;
+  color: #393;
+  text-decoration: underline dotted;
 }
 
 </style>
