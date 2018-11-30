@@ -3,6 +3,7 @@
     <el-table
       :data="proxies"
       :default-sort="{prop: 'name', order: 'ascending'}"
+      :cell-class-name="getCellClass"
       style="width: 100%"
     >
       <el-table-column type="expand">
@@ -101,6 +102,34 @@ export default {
     formatTrafficOut(row, column) {
       return Humanize.fileSize(row.traffic_out);
     },
+    getCellClass({ row, column, columnIndex }) {
+      // el-tag el-tag--info
+      if (columnIndex == 3) {
+        // ?? Connections
+        if (row[column.property] > 20) {
+          return "cell_danger";
+        }
+        if (row[column.property] > 10) {
+          return "cell_warning";
+        }
+        if (row[column.property] > 0) {
+          return "cell_normal";
+        }
+      }
+      if (columnIndex == 5) {
+        // ?? Traffic Out
+        if (row[column.property] > 1e9) {
+          return "cell_danger";
+        }
+        if (row[column.property] > 1e5) {
+          return "cell_warning";
+        }
+        if (row[column.property] > 0) {
+          return "cell_normal";
+        }
+      }
+      return "";
+    },
     fetchData() {
       fetch("/api/proxy/tcp", { credentials: "include" })
         .then(res => {
@@ -114,6 +143,7 @@ export default {
             if (!!_proxies[_proxy.IP]) {
               if (_proxy.name.indexOf("_ssh") == -1) {
                 _proxies[_proxy.IP].name = _proxy.name;
+                _proxies[_proxy.IP].port = _proxy.port;
               }
             } else {
               _proxies[_proxy.IP] = _proxy;
@@ -155,4 +185,17 @@ export default {
 </script>
 
 <style>
+.cell_danger div {
+  color: #f56c6c;
+}
+.cell_waring div {
+  color: #e6a23c;
+}
+.cell_normal div {
+  color: #409eff;
+}
+.cell_success div {
+  color: #67c23a;
+}
+
 </style>
