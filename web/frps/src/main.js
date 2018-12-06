@@ -1,8 +1,8 @@
 import 'element-ui/lib/theme-chalk/index.css'
-import './utils/less/custom.less'
 import 'whatwg-fetch'
+import './utils/less/custom.less'
 
-//import ElementUI from 'element-ui'
+// import ElementUI from 'element-ui'
 import {
     Button,
     Col,
@@ -23,6 +23,10 @@ import Vue from 'vue'
 import lang from 'element-ui/lib/locale/lang/en'
 import locale from 'element-ui/lib/locale'
 import router from './router'
+
+Vue.prototype.$ELEMENT = {
+    size: 'small'
+}
 
 locale.use(lang)
 

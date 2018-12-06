@@ -31,7 +31,7 @@ app:
 	env CGO_ENABLED=0 GOOS=linux  GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o ./bin/linux_amd64/frpc ./cmd/frpc
 	env CGO_ENABLED=0 GOOS=linux  GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o ./bin/linux_amd64/frps ./cmd/frps
 	env CGO_ENABLED=0 GOOS=linux  GOARCH=arm64 go build -ldflags "$(LDFLAGS)" -o ./bin/linux_arm64/frpc ./cmd/frpc
-	cp ./bin/linux_amd64/frpc ~/works/frp/frpc/frpc && cp ./bin/linux_amd64/frps ~/works/frp/frps/frps
+	# cp -f ./bin/linux_amd64/frpc ~/works/frp/frpc/frpc && cp -f ./bin/linux_amd64/frps ~/works/frp/frps/frps
 
 temp:
 	env CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o ./frps_linux_amd64 ./cmd/frps

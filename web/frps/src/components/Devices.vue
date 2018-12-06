@@ -80,108 +80,108 @@
 </template>
 
 <script>
-import Humanize from "humanize-plus";
-import Traffic from "./Traffic.vue";
-import { TcpProxy } from "../utils/proxy.js";
+import Humanize from "humanize-plus"
+import Traffic from "./Traffic.vue"
+import { TcpProxy } from "../utils/proxy.js"
 export default {
   data() {
     return {
       proxies: null
-    };
+    }
   },
   created() {
-    this.fetchData();
+    this.fetchData()
   },
   watch: {
     $route: "fetchData"
   },
   methods: {
     formatTrafficIn(row, column) {
-      return Humanize.fileSize(row.traffic_in);
+      return Humanize.fileSize(row.traffic_in)
     },
     formatTrafficOut(row, column) {
-      return Humanize.fileSize(row.traffic_out);
+      return Humanize.fileSize(row.traffic_out)
     },
     getCellClass({ row, column, columnIndex }) {
       // el-tag el-tag--info
       if (columnIndex == 3) {
         // ?? Connections
         if (row[column.property] > 20) {
-          return "cell_danger";
+          return "cell_danger"
         }
         if (row[column.property] > 10) {
-          return "cell_warning";
+          return "cell_warning"
         }
         if (row[column.property] > 0) {
-          return "cell_normal";
+          return "cell_normal"
         }
       }
       if (columnIndex == 5) {
         // ?? Traffic Out
         if (row[column.property] > 1e9) {
-          return "cell_danger";
+          return "cell_danger"
         }
         if (row[column.property] > 1e5) {
-          return "cell_warning";
+          return "cell_warning"
         }
         if (row[column.property] > 0) {
-          return "cell_normal";
+          return "cell_normal"
         }
       }
-      return "";
+      return ""
     },
     fetchData() {
       fetch("/api/proxy/tcp", { credentials: "include" })
         .then(res => {
-          return res.json();
+          return res.json()
         })
         .then(json => {
           // TODO 合并相同客户端的 proxy 和 ssh
-          let _proxies = {};
+          let _proxies = {}
           json.proxies.forEach(_proxyStats => {
-            let _proxy = new TcpProxy(_proxyStats);
+            let _proxy = new TcpProxy(_proxyStats)
             if (!!_proxies[_proxy.IP]) {
               if (_proxy.name.indexOf("_ssh") == -1) {
-                _proxies[_proxy.IP].name = _proxy.name;
-                _proxies[_proxy.IP].port = _proxy.port;
+                _proxies[_proxy.IP].name = _proxy.name
+                _proxies[_proxy.IP].port = _proxy.port
               }
             } else {
-              _proxies[_proxy.IP] = _proxy;
+              _proxies[_proxy.IP] = _proxy
             }
             if (_proxy.name.indexOf("_ssh") > 0) {
               // ssh root@139.196.120.46 -p 23979
               _proxies[_proxy.IP].ssh =
-                "ssh root@139.196.120.46 -p " + _proxy.port;
+                "ssh root@139.196.120.46 -p " + _proxy.port
             }
-          });
+          })
           // for (let _proxyStats of json.proxies) {
-          //   let _proxy = new TcpProxy(_proxyStats);
+          //   let _proxy = new TcpProxy(_proxyStats)
           //   if (!!_proxies[_proxy.IP]) {
           //     if (_proxy.name.indexOf("_ssh") > 0) {
           //       // ssh root@139.196.120.46 -p 23979
-          //       _proxies[_proxy.IP].ssh = `ssh root@139.196.120.46 -p ${_proxy.port}`;
+          //       _proxies[_proxy.IP].ssh = `ssh root@139.196.120.46 -p ${_proxy.port}`
           //     }
           //   } else {
-          //     _proxies[_proxy.IP] = _proxy;
+          //     _proxies[_proxy.IP] = _proxy
           //   }
           // }
-          console.log(_proxies);
+          console.log(_proxies)
 
-          this.proxies = new Array();
+          this.proxies = new Array()
           Object.keys(_proxies).forEach(key => {
-            this.proxies.push(_proxies[key]);
-          });
+            this.proxies.push(_proxies[key])
+          })
           // for (let proxyStats of _proxies) {
-          //   this.proxies.push(proxyStats);
+          //   this.proxies.push(proxyStats)
           // }
-          console.log(this.proxies);
-        });
+          console.log(this.proxies)
+        })
     }
   },
   components: {
     "my-traffic-chart": Traffic
   }
-};
+}
 </script>
 
 <style>
@@ -201,5 +201,4 @@ export default {
   color: #393;
   text-decoration: underline dotted;
 }
-
 </style>
