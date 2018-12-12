@@ -2,27 +2,27 @@
 
 # NOTE 以下为控制字符数出，使用 echo -e 可以控制屏幕输出的格式
 # NOTE 控制字符为不可见字符，可能会造成日志文件的过滤出现不可控结果
-bla="\033[30m"     # 30 40 black   #000
+# bla="\033[30m"     # 30 40 black   #000
 red="\\033[31m"    # 31 41 red     #c33
 gre="\\033[32m"    # 32 42 green   #3c3
-yel="\\033[33m"    # 33 43 yellow  #cc3
-blu="\\033[34m"    # 34 44 blue    #33c
-mag="\\033[35m"    # 35 45 magenta #c3c
-cya="\\033[36m"    # 36 46 cyan    #3cc
-whi="\\033[37m"    # 37 47 white   #ccc
+# yel="\\033[33m"    # 33 43 yellow  #cc3
+# blu="\\033[34m"    # 34 44 blue    #33c
+# mag="\\033[35m"    # 35 45 magenta #c3c
+# cya="\\033[36m"    # 36 46 cyan    #3cc
+# whi="\\033[37m"    # 37 47 white   #ccc
 cle="\\033[0m"     # clear
 
-reD="\\033[4;31m"  # 31 41 red   #c33
-grE="\\033[4;32m"  # 32 42 green #3c3
+# reD="\\033[4;31m"  # 31 41 red   #c33
+# grE="\\033[4;32m"  # 32 42 green #3c3
 RED="\\033[41;37m" # 37 47 white on red   #ccc #c33
-BLU="\\033[44;37m" # 37 47 white on blue  #ccc #33c
-GRE="\\033[42;37m" # 37 47 white on green #ccc #3c3
-bol="\\033[1m"     # bold
-und="\\033[4m"     # underline
+# BLU="\\033[44;37m" # 37 47 white on blue  #ccc #33c
+# GRE="\\033[42;37m" # 37 47 white on green #ccc #3c3
+# bol="\\033[1m"     # bold
+# und="\\033[4m"     # underline
 
 filter=$(seq -s '=' 1 120 | tr -dc '=')
 beginline="${gre}${filter}${cle}\\n"
-line="${blu}${filter}${cle}\\n"
+# line="${blu}${filter}${cle}\\n"
 endline="\\n${red}${filter}${cle}"
 
 # source /Users/vanton/works/hhighlighter/h.sh
