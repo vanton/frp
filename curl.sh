@@ -133,12 +133,9 @@ h() {
 # ?? android
 echo -e "${beginline}"
 
-# echo -e "# ${RED}(Android) 139.196.120.46:26132${cle}"
 # curl -x 139.196.120.46:26132 -IL http://ipip.net/ip.html | h
-echo -e "# ${RED}(Android) 139.196.120.46:20124${cle}"
-# curl -x 139.196.120.46:20124 -IL http://ipip.net/ip.html | h
-curl -x 139.196.120.46:20124 -Lv -D - https://pv.sohu.com/cityjson?ie=utf-8 | h
-# curl -x 139.196.120.46:20124 -Lv -D - http://139.224.131.59/1.php | h
+echo -e "# ${RED}(Android) 139.196.120.46:22267${cle}"
+curl -x 139.196.120.46:22267 -Lv -D - https://pv.sohu.com/cityjson?ie=utf-8
 
 # ?? 0.99
 # echo -e "${line}"
