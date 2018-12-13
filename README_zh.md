@@ -99,7 +99,7 @@ master 分支用于发布稳定版本，dev 分支用于开发，您可以尝试
   [common]
   server_addr = x.x.x.x
   server_port = 7000
-
+  
   [ssh]
   type = tcp
   local_ip = 127.0.0.1
@@ -177,7 +177,7 @@ DNS 查询请求通常使用 UDP 协议，frp 支持对内网 UDP 服务的穿�
   [common]
   server_addr = x.x.x.x
   server_port = 7000
-
+  
   [dns]
   type = udp
   local_ip = 8.8.8.8
@@ -206,7 +206,7 @@ frps 的部署步骤同上。
   [common]
   server_addr = x.x.x.x
   server_port = 7000
-
+  
   [unix_domain_socket]
   type = tcp
   remote_port = 6000
@@ -518,7 +518,7 @@ tcp_mux = false
 目前只支持 tcp 类型的 proxy。
 
 ```ini
-# fprc.ini
+# frpc.ini
 [test1]
 type = tcp
 local_port = 8080
@@ -619,7 +619,7 @@ local_port = 80
 subdomain = test
 ```
 
-frps 和 fprc 都启动成功后，通过 `test.frps.com` 就可以访问到内网的 web 服务。
+frps 和 frpc 都启动成功后，通过 `test.frps.com` 就可以访问到内网的 web 服务。
 
 需要注意的是如果 frps 配置了 `subdomain_host`，则 `custom_domains` 中不能是属于 `subdomain_host` 的子域名或者泛域名。
 

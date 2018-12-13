@@ -83,45 +83,46 @@
 </template>
 
 <script>
-import Humanize from "humanize-plus";
-import Traffic from "./Traffic.vue";
-import { UdpProxy } from "../utils/proxy.js";
+  import Humanize from 'humanize-plus';
+  import Traffic from './Traffic.vue'
+  import {
+    UdpProxy
+  } from '../utils/proxy.js'
 export default {
   data() {
     return {
       proxies: null
-    };
+      }
   },
   created() {
-    this.fetchData();
+      this.fetchData()
   },
   watch: {
-    $route: "fetchData"
+      '$route': 'fetchData'
   },
   methods: {
     formatTrafficIn(row, column) {
-      return Humanize.fileSize(row.traffic_in);
+        return Humanize.fileSize(row.traffic_in)
     },
     formatTrafficOut(row, column) {
-      return Humanize.fileSize(row.traffic_out);
+        return Humanize.fileSize(row.traffic_out)
     },
     fetchData() {
-      fetch("/api/proxy/udp", { credentials: "include" })
+        fetch('/api/proxy/udp', {credentials: 'include'})
         .then(res => {
-          return res.json();
-        })
-        .then(json => {
-          this.proxies = new Array();
+            return res.json()
+          }).then(json => {
+            this.proxies = new Array()
           for (let proxyStats of json.proxies) {
-            this.proxies.push(new UdpProxy(proxyStats));
+              this.proxies.push(new UdpProxy(proxyStats))
           }
-        });
+          })
     }
   },
   components: {
-    "my-traffic-chart": Traffic
+        'my-traffic-chart': Traffic
   }
-};
+  }
 </script>
 
 <style>

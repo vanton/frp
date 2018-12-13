@@ -11,9 +11,9 @@
             trigger="click">
             <my-traffic-chart :proxy_name="props.row.name"></my-traffic-chart>
           </el-popover>
-
+  
           <el-button v-popover:popover4 type="primary" size="small" icon="view" :name="props.row.name" style="margin-bottom:10px" @click="fetchData2">Traffic Statistics</el-button>
-
+  
           <el-form label-position="left" inline class="demo-table-expand">
             <el-form-item label="Name">
               <span>{{ props.row.name }}</span>
@@ -72,45 +72,44 @@
 </template>
 
 <script>
-import Humanize from "humanize-plus";
-import Traffic from "./Traffic.vue";
-import { StcpProxy } from "../utils/proxy.js";
-export default {
-  data() {
-    return {
-      proxies: null
-    };
-  },
-  created() {
-    this.fetchData();
-  },
-  watch: {
-    $route: "fetchData"
-  },
-  methods: {
-    formatTrafficIn(row, column) {
-      return Humanize.fileSize(row.traffic_in);
+  import Humanize from 'humanize-plus'
+  import Traffic from './Traffic.vue'
+  import { StcpProxy } from '../utils/proxy.js'
+  export default {
+    data() {
+      return {
+        proxies: null
+      }
     },
-    formatTrafficOut(row, column) {
-      return Humanize.fileSize(row.traffic_out);
+    created() {
+      this.fetchData()
     },
-    fetchData() {
-      fetch("/api/proxy/stcp", { credentials: "include" })
-        .then(res => {
-          return res.json();
-        })
-        .then(json => {
-          this.proxies = new Array();
-          for (let proxyStats of json.proxies) {
-            this.proxies.push(new StcpProxy(proxyStats));
-          }
-        });
+    watch: {
+      '$route': 'fetchData'
+    },
+    methods: {
+      formatTrafficIn(row, column) {
+        return Humanize.fileSize(row.traffic_in)
+      },
+      formatTrafficOut(row, column) {
+        return Humanize.fileSize(row.traffic_out)
+      },
+      fetchData() {
+        fetch('/api/proxy/stcp', {credentials: 'include'})
+          .then(res => {
+            return res.json()
+          }).then(json => {
+            this.proxies = new Array()
+            for (let proxyStats of json.proxies) {
+              this.proxies.push(new StcpProxy(proxyStats))
+            }
+          })
+      }
+    },
+    components: {
+        'my-traffic-chart': Traffic
     }
-  },
-  components: {
-    "my-traffic-chart": Traffic
   }
-};
 </script>
 
 <style>

@@ -39,7 +39,7 @@ const (
 <h1>The page you visit not found.</h1>
 <p>Sorry, the page you are looking for is currently unavailable.<br/>
 Please try again later.</p>
-<p>The server is powered by <a href="https://github.com/vanton/frp">frp</a>.</p>
+<p>The server is powered by <a href="https://github.com/fatedier/frp">frp</a>.</p>
 <p><em>Faithfully yours, frp.</em></p>
 </body>
 </html>

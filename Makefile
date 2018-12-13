@@ -1,10 +1,8 @@
 export PATH := $(GOPATH)/bin:$(PATH)
-LDFLAGS := -s -w
 
 all: fmt build
 
-# build: frps frpc app
-build: frpc
+build: frps frpc
 
 # compile assets into binary file
 file:
@@ -17,7 +15,7 @@ file:
 
 fmt:
 	go fmt ./...
-
+	
 frps:
 	go build -o bin/frps ./cmd/frps
 	@cp -rf ./assets/static ./bin

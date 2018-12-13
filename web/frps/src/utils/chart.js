@@ -1,13 +1,13 @@
+import Humanize from "humanize-plus"
+import echarts from "echarts/lib/echarts"
+
 import "echarts/theme/macarons"
 import "echarts/lib/chart/bar"
 import "echarts/lib/chart/pie"
 import "echarts/lib/component/tooltip"
 import "echarts/lib/component/title"
 
-import Humanize from "humanize-plus"
-import echarts from "echarts/lib/echarts"
-
-function DrawTrafficChart (elementId, trafficIn, trafficOut) {
+function DrawTrafficChart(elementId, trafficIn, trafficOut) {
     let myChart = echarts.init(document.getElementById(elementId), 'macarons');
     myChart.showLoading()
 
@@ -19,7 +19,7 @@ function DrawTrafficChart (elementId, trafficIn, trafficOut) {
         },
         tooltip: {
             trigger: 'item',
-            formatter: function (v) {
+            formatter: function(v) {
                 return Humanize.fileSize(v.data.value) + " (" + v.percent + "%)"
             }
         },
@@ -47,7 +47,7 @@ function DrawTrafficChart (elementId, trafficIn, trafficOut) {
     myChart.hideLoading()
 }
 
-function DrawProxyChart (elementId, serverInfo) {
+function DrawProxyChart(elementId, serverInfo) {
     if (serverInfo.proxy_type_count.tcp == null) {
         serverInfo.proxy_type_count.tcp = 0
     }
@@ -77,7 +77,7 @@ function DrawProxyChart (elementId, serverInfo) {
         },
         tooltip: {
             trigger: 'item',
-            formatter: function (v) {
+            formatter: function(v) {
                 return v.data.value
             }
         },
@@ -118,7 +118,7 @@ function DrawProxyChart (elementId, serverInfo) {
 }
 
 // 7 days
-function DrawProxyTrafficChart (elementId, trafficInArr, trafficOutArr) {
+function DrawProxyTrafficChart(elementId, trafficInArr, trafficOutArr) {
     let params = {
         width: '600px',
         height: '400px'
@@ -143,7 +143,7 @@ function DrawProxyTrafficChart (elementId, trafficInArr, trafficOutArr) {
             axisPointer: {
                 type: 'shadow'
             },
-            formatter: function (data) {
+            formatter: function(data) {
                 let html = ''
                 if (data.length > 0) {
                     html += data[0].name + '<br/>'
@@ -172,7 +172,7 @@ function DrawProxyTrafficChart (elementId, trafficInArr, trafficOutArr) {
         yAxis: [{
             type: 'value',
             axisLabel: {
-                formatter: function (value) {
+                formatter: function(value) {
                     return Humanize.fileSize(value)
                 }
             }

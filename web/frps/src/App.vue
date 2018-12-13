@@ -1,13 +1,13 @@
 <template>
-  <div id="app">
-    <header class="grid-content header-color">
-      <el-row>
+    <div id="app">
+        <header class="grid-content header-color">
+            <el-row>
         <a class="brand" href="#">frps dashboard</a>
-      </el-row>
-    </header>
-    <section>
-      <el-row :gutter="20">
-        <el-col id="side-nav" :xs="24" :md="4">
+            </el-row>
+        </header>
+        <section>
+            <el-row :gutter="20">
+                <el-col id="side-nav" :xs="24" :md="4">
           <el-menu
             default-active="1"
             mode="vertical"
@@ -25,7 +25,7 @@
               <el-menu-item index="/proxies/https">HTTPS</el-menu-item>
               <el-menu-item index="/proxies/stcp">STCP</el-menu-item>
             </el-submenu>
-            <el-menu-item index>Help</el-menu-item>
+                        <el-menu-item index="">Help</el-menu-item>
           </el-menu>
         </el-col>
 
@@ -44,7 +44,7 @@
 export default {
   methods: {
     handleSelect(key, path) {
-      if (key == "") {
+                if (key == '') {
         window.open("https://github.com/vanton/frp");
       }
     }

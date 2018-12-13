@@ -11,9 +11,9 @@
             trigger="click">
             <my-traffic-chart :proxy_name="props.row.name"></my-traffic-chart>
           </el-popover>
-
+  
           <el-button v-popover:popover4 type="primary" size="small" icon="view" style="margin-bottom:10px">Traffic Statistics</el-button>
-
+  
           <el-form label-position="left" inline class="demo-table-expand">
             <el-form-item label="Name">
               <span>{{ props.row.name }}</span>
@@ -84,65 +84,59 @@
 </template>
 
 <script>
-import Humanize from "humanize-plus";
-import Traffic from "./Traffic.vue";
-import { HttpsProxy } from "../utils/proxy.js";
-export default {
-  data() {
-    return {
-      proxies: null,
-      vhost_https_port: "",
-      subdomain_host: ""
-    };
-  },
-  created() {
-    this.fetchData();
-  },
-  watch: {
-    $route: "fetchData"
-  },
-  methods: {
-    formatTrafficIn(row, column) {
-      return Humanize.fileSize(row.traffic_in);
+  import Humanize from 'humanize-plus';
+  import Traffic from './Traffic.vue'
+  import {
+    HttpsProxy
+  } from '../utils/proxy.js'
+  export default {
+    data() {
+      return {
+        proxies: null,
+        vhost_https_port: '',
+        subdomain_host: ''
+      }
     },
-    formatTrafficOut(row, column) {
-      return Humanize.fileSize(row.traffic_out);
+    created() {
+      this.fetchData()
     },
-    fetchData() {
-      fetch("/api/serverinfo", { credentials: "include" })
-        .then(res => {
-          return res.json();
-        })
-        .then(json => {
-          this.vhost_https_port = json.vhost_https_port;
-          this.subdomain_host = json.subdomain_host;
-          if (this.vhost_https_port == null || this.vhost_https_port == 0) {
-            return;
-          } else {
-            fetch("/api/proxy/https", { credentials: "include" })
-              .then(res => {
-                return res.json();
-              })
-              .then(json => {
-                this.proxies = new Array();
-                for (let proxyStats of json.proxies) {
-                  this.proxies.push(
-                    new HttpsProxy(
-                      proxyStats,
-                      this.vhost_https_port,
-                      this.subdomain_host
-                    )
-                  );
-                }
-              });
-          }
-        });
+    watch: {
+      '$route': 'fetchData'
+    },
+    methods: {
+      formatTrafficIn(row, column) {
+        return Humanize.fileSize(row.traffic_in)
+      },
+      formatTrafficOut(row, column) {
+        return Humanize.fileSize(row.traffic_out)
+      },
+      fetchData() {
+        fetch('/api/serverinfo', {credentials: 'include'})
+          .then(res => {
+            return res.json()
+          }).then(json => {
+            this.vhost_https_port = json.vhost_https_port
+            this.subdomain_host = json.subdomain_host
+            if (this.vhost_https_port == null || this.vhost_https_port == 0) {
+              return
+            } else {
+              fetch('/api/proxy/https', {credentials: 'include'})
+                .then(res => {
+                  return res.json()
+                }).then(json => {
+                  this.proxies = new Array()
+                  for (let proxyStats of json.proxies) {
+                    this.proxies.push(new HttpsProxy(proxyStats, this.vhost_https_port, this.subdomain_host))
+                  }
+                })
+            }
+          })
+      }
+    },
+    components: {
+        'my-traffic-chart': Traffic
     }
-  },
-  components: {
-    "my-traffic-chart": Traffic
   }
-};
 </script>
 
 <style>
