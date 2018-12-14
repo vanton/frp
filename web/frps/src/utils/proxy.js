@@ -2,6 +2,7 @@ class BaseProxy {
     constructor(proxyStats) {
         this.name = proxyStats.name
         this.IP = proxyStats.IP
+        this.version = proxyStats.version
         if (proxyStats.conf != null) {
             this.encryption = proxyStats.conf.use_encryption
             this.compression = proxyStats.conf.use_compression
