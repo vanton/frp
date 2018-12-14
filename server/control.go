@@ -45,7 +45,8 @@ type Control struct {
 	conn net.Conn
 
 	// NOTE IP
-	IP string
+	IP      string
+	Version string
 
 	// put a message in this channel to send it over control connection to client
 	sendCh chan (msg.Message)
@@ -91,6 +92,7 @@ func NewControl(svr *Service, ctlConn net.Conn, loginMsg *msg.Login, IP string) 
 		conn:            ctlConn,
 		IP:              IP,
 		loginMsg:        loginMsg,
+		Version:         loginMsg.Version,
 		sendCh:          make(chan msg.Message, 10),
 		readCh:          make(chan msg.Message, 10),
 		workConnCh:      make(chan net.Conn, loginMsg.PoolCount+10),
@@ -338,7 +340,7 @@ func (ctl *Control) manager() {
 				} else {
 					resp.RemoteAddr = remoteAddr
 					ctl.conn.Info("new proxy [%s] success", m.ProxyName)
-					StatsNewProxy(m.ProxyName, m.ProxyType, ctl.conn.RemoteAddr().String())
+					StatsNewProxy(m.ProxyName, m.ProxyType, ctl.conn.RemoteAddr().String(), ctl.Version)
 				}
 				ctl.sendCh <- resp
 			case *msg.CloseProxy:

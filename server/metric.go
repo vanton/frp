@@ -51,6 +51,7 @@ type ProxyStatistics struct {
 	// NOTE IP
 	Name          string
 	IP            string
+	Version       string
 	ProxyType     string
 	TrafficIn     metric.DateCounter
 	TrafficOut    metric.DateCounter
@@ -105,7 +106,7 @@ func StatsCloseClient() {
 	}
 }
 
-func StatsNewProxy(name string, proxyType string, IP string) {
+func StatsNewProxy(name string, proxyType string, IP string, Version string) {
 	if g.GlbServerCfg.DashboardPort != 0 {
 		globalStats.mu.Lock()
 		defer globalStats.mu.Unlock()
@@ -122,6 +123,7 @@ func StatsNewProxy(name string, proxyType string, IP string) {
 				// NOTE IP
 				Name:       name,
 				IP:         IP,
+				Version:    Version,
 				ProxyType:  proxyType,
 				CurConns:   metric.NewCounter(),
 				TrafficIn:  metric.NewDateCounter(ReserveDays),
@@ -233,6 +235,7 @@ type ProxyStats struct {
 	// NOTE IP
 	Name            string
 	IP              string
+	Version         string
 	Type            string
 	TodayTrafficIn  int64
 	TodayTrafficOut int64
@@ -255,6 +258,7 @@ func StatsGetProxiesByType(proxyType string) []*ProxyStats {
 			// NOTE IP
 			Name:            name,
 			IP:              proxyStats.IP,
+			Version:         proxyStats.Version,
 			Type:            proxyStats.ProxyType,
 			TodayTrafficIn:  proxyStats.TrafficIn.TodayCount(),
 			TodayTrafficOut: proxyStats.TrafficOut.TodayCount(),
@@ -288,6 +292,7 @@ func StatsGetProxiesByTypeAndName(proxyType string, proxyName string) (res *Prox
 			// NOTE IP
 			Name:            name,
 			IP:              proxyStats.IP,
+			Version:         proxyStats.Version,
 			Type:            proxyStats.ProxyType,
 			TodayTrafficIn:  proxyStats.TrafficIn.TodayCount(),
 			TodayTrafficOut: proxyStats.TrafficOut.TodayCount(),

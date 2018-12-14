@@ -149,6 +149,7 @@ type ProxyStatsInfo struct {
 	// NOTE IP
 	Name            string      `json:"name"`
 	IP              string      `json:"IP"`
+	Version         string      `json:"version"`
 	Conf            interface{} `json:"conf"`
 	TodayTrafficIn  int64       `json:"today_traffic_in"`
 	TodayTrafficOut int64       `json:"today_traffic_out"`
@@ -209,6 +210,7 @@ func getProxyStatsByType(proxyType string) (proxyInfos []*ProxyStatsInfo) {
 		proxyInfo.Name = ps.Name
 		// NOTE IP
 		proxyInfo.IP = ps.IP
+		proxyInfo.Version = ps.Version
 		proxyInfo.TodayTrafficIn = ps.TodayTrafficIn
 		proxyInfo.TodayTrafficOut = ps.TodayTrafficOut
 		proxyInfo.CurConns = ps.CurConns
