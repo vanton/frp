@@ -134,13 +134,13 @@ h() {
 echo -e "${beginline}"
 
 # curl -x 139.196.120.46:26132 -IL http://ipip.net/ip.html | h
-echo -e "# ${RED}(Android) 139.196.120.46:22267${cle}"
-curl -x 139.196.120.46:22267 -Lv -D - https://pv.sohu.com/cityjson?ie=utf-8
+# echo -e "# ${RED}(Android) 139.196.120.46:22267${cle}"
+# curl -x 139.196.120.46:22267 -Lv -D - https://pv.sohu.com/cityjson?ie=utf-8
 
-# ?? 0.99
+# ?? p2p
 # echo -e "${line}"
-# echo -e "# ${RED}(0.99) 139.196.120.46:20123${cle}"
-# curl -x 139.196.120.46:20099 -IL http://ipip.net/ip.html | h
+echo -e "# ${RED}(p2p) 127.0.0.1:9001 -> (nexus) p2p_tcp - [proxy.py:8899]${cle}"
+curl -x 127.0.0.1:9001 -IL http://ipip.net/ip.html | h
 
 # ?? US
 # echo -e "${line}"
