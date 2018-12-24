@@ -6,7 +6,7 @@
 red="\\033[31m"    # 31 41 red     #c33
 gre="\\033[32m"    # 32 42 green   #3c3
 # yel="\\033[33m"    # 33 43 yellow  #cc3
-# blu="\\033[34m"    # 34 44 blue    #33c
+blu="\\033[34m"    # 34 44 blue    #33c
 # mag="\\033[35m"    # 35 45 magenta #c3c
 # cya="\\033[36m"    # 36 46 cyan    #3cc
 # whi="\\033[37m"    # 37 47 white   #ccc
@@ -22,7 +22,7 @@ RED="\\033[41;37m" # 37 47 white on red   #ccc #c33
 
 filter=$(seq -s '=' 1 120 | tr -dc '=')
 beginline="${gre}${filter}${cle}\\n"
-# line="${blu}${filter}${cle}\\n"
+line="${blu}\\n${filter}${cle}\\n"
 endline="\\n${red}${filter}${cle}"
 
 # source /Users/vanton/works/hhighlighter/h.sh
@@ -130,21 +130,26 @@ h() {
 
 }
 
+# ipc="http://ipip.net/ip.html"
+ipc="https://pv.sohu.com/cityjson?ie=utf-8"
 # ?? android
 echo -e "${beginline}"
 
-# curl -x 139.196.120.46:26132 -IL http://ipip.net/ip.html | h
 # echo -e "# ${RED}(Android) 139.196.120.46:22267${cle}"
-# curl -x 139.196.120.46:22267 -Lv -D - https://pv.sohu.com/cityjson?ie=utf-8
+# curl -x 139.196.120.46:22267 -Lv -D - "${ipc}"
 
 # ?? p2p
 # echo -e "${line}"
-echo -e "# ${RED}(p2p) 127.0.0.1:9001 -> (nexus) p2p_tcp - [proxy.py:8899]${cle}"
-curl -x 127.0.0.1:9001 -IL http://ipip.net/ip.html | h
+# echo -e "# ${RED}(p2p) 127.0.0.1:9001 -> (nexus) p2p_tcp - [proxy.py:8899]${cle}"
+# curl -x 127.0.0.1:9001 -IL "${ipc}" | h
 
 # ?? US
 # echo -e "${line}"
-# echo -e "# ${RED}(US) 139.196.120.46:30000${cle}"
-# curl -x 139.196.120.46:30000 -U frpc:abcdefg -IL https://ipip.net/ip.html | h
+upx="frpc:abcdefg@139.196.120.46:30000"
+echo -e "# ${RED}(US) 139.196.120.46:30000${cle}"
+curl -x 139.196.120.46:30000 -U frpc:abcdefg -L "${ipc}" | h
+echo -e "${line}"
+http --proxy="http://${upx}" --proxy="https://${upx}"\
+	 --follow --all "${ipc}" -v
 
 echo -e "${endline}"
