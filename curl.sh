@@ -131,6 +131,7 @@ h() {
 }
 
 # ipc="http://ipip.net/ip.html"
+# ipc="http://ipv4.icanhazip.com"
 ipc="https://pv.sohu.com/cityjson?ie=utf-8"
 # ?? android
 echo -e "${beginline}"
