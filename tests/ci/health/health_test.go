@@ -8,10 +8,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/fatedier/frp/tests/config"
-	"github.com/fatedier/frp/tests/consts"
-	"github.com/fatedier/frp/tests/mock"
-	"github.com/fatedier/frp/tests/util"
+	"github.com/vanton/frp/tests/config"
+	"github.com/vanton/frp/tests/consts"
+	"github.com/vanton/frp/tests/mock"
+	"github.com/vanton/frp/tests/util"
 
 	"github.com/stretchr/testify/assert"
 )
