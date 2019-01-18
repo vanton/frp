@@ -149,7 +149,7 @@
 .source {
     border: 1px solid #eaeefb;
     border-radius: 4px;
-  transition: 0.2s;
+    transition: .2s;
     padding: 24px;
 }
 

@@ -1,29 +1,27 @@
-import 'element-ui/lib/theme-chalk/index.css'
-import 'whatwg-fetch'
-import './utils/less/custom.less'
-
-// import ElementUI from 'element-ui'
+import Vue from 'vue'
+//import ElementUI from 'element-ui'
 import {
     Button,
-    Col,
     Form,
     FormItem,
-    Menu,
-    MenuItem,
-    Popover,
     Row,
-    Submenu,
+    Col,
     Table,
     TableColumn,
+    Popover,
+    Menu,
+    Submenu,
+    MenuItem,
     Tag
 } from 'element-ui'
 
-import App from './App.vue'
-import Vue from 'vue'
 import lang from 'element-ui/lib/locale/lang/en'
 import locale from 'element-ui/lib/locale'
+import 'element-ui/lib/theme-chalk/index.css'
+import './utils/less/custom.less'
+import App from './App.vue'
 import router from './router'
-
+import 'whatwg-fetch'
 Vue.prototype.$ELEMENT = {
     size: 'small'
 }
@@ -49,7 +47,5 @@ new Vue({
     el: '#app',
     router,
     template: '<App/>',
-    components: {
-        App
-    }
+    components: { App }
 })
