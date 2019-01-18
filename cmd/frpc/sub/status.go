@@ -28,6 +28,7 @@ import (
 
 	"github.com/vanton/frp/client"
 	"github.com/vanton/frp/g"
+	"github.com/vanton/frp/models/config"
 )
 
 func init() {
@@ -38,7 +39,12 @@ var statusCmd = &cobra.Command{
 	Use:   "status",
 	Short: "Overview of all proxies status",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		err := parseClientCommonCfg(CfgFileTypeIni, cfgFile)
+		iniContent, err := config.GetRenderedConfFromFile(cfgFile)
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+		err = parseClientCommonCfg(CfgFileTypeIni, iniContent)
 		if err != nil {
 			fmt.Println(err)
 			os.Exit(1)
