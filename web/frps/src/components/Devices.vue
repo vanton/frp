@@ -141,6 +141,7 @@ export default {
         .then(json => {
           // TODO 合并相同客户端的 proxy 和 ssh
           let _proxies = {};
+
           // NOTE 排序名称，用于合并 ssh
           let jj = json.proxies.sort(function(n, s) {
             if (n.name < s.name) {
@@ -152,19 +153,31 @@ export default {
             return 0;
             // return n.name < s.name ? -1 : n.name > s.name ? 1 : void 0;
           });
+
+          String.prototype.RTrim = function (c) {
+              if (!c) {
+                  c = ' ';
+              }
+              var reg = new RegExp('([' + c + ']*$)', 'gi');
+              return this.replace(reg, '');
+          };
+
           jj.forEach(_proxyStats => {
             let _proxy = new TcpProxy(_proxyStats);
-            if (!!_proxies[_proxy.IP]) {
+            let _id = _proxy.name.RTrim("_ssh");
+
+            if (!!_proxies[_id]) {
               if (_proxy.name.indexOf("_ssh") == -1) {
-                _proxies[_proxy.IP].name = _proxy.name;
-                _proxies[_proxy.IP].port = _proxy.port;
+                _proxies[_id].name = _proxy.name;
+                _proxies[_id].port = _proxy.port;
               }
             } else {
-              _proxies[_proxy.IP] = _proxy;
+              _proxies[_id] = _proxy;
             }
+
             if (_proxy.name.indexOf("_ssh") > 0) {
               // ssh root@139.196.120.46 -p 23979
-              _proxies[_proxy.IP].ssh =
+              _proxies[_id].ssh =
                 "ssh root@139.196.120.46 -p " + _proxy.port;
             }
           });
