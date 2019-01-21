@@ -28,7 +28,7 @@ class TcpProxy extends BaseProxy {
             this.port = proxyStats.conf.remote_port
         } else {
             this.addr = ""
-            this.port = proxyStats.conf.remote_port
+            this.port = ""
         }
     }
 }

@@ -154,12 +154,12 @@ export default {
             // return n.name < s.name ? -1 : n.name > s.name ? 1 : void 0;
           });
 
-          String.prototype.RTrim = function (c) {
-              if (!c) {
-                  c = ' ';
-              }
-              var reg = new RegExp('([' + c + ']*$)', 'gi');
-              return this.replace(reg, '');
+          String.prototype.RTrim = function(c) {
+            if (!c) {
+              c = " ";
+            }
+            var reg = new RegExp("([" + c + "]*$)", "gi");
+            return this.replace(reg, "");
           };
 
           jj.forEach(_proxyStats => {
@@ -177,30 +177,17 @@ export default {
 
             if (_proxy.name.indexOf("_ssh") > 0) {
               // ssh root@139.196.120.46 -p 23979
-              _proxies[_id].ssh =
-                "ssh root@139.196.120.46 -p " + _proxy.port;
+              _proxies[_id].ssh = "ssh root@139.196.120.46 -p " + _proxy.port;
             }
           });
-          // for (let _proxyStats of json.proxies) {
-          //   let _proxy = new TcpProxy(_proxyStats)
-          //   if (!!_proxies[_proxy.IP]) {
-          //     if (_proxy.name.indexOf("_ssh") > 0) {
-          //       // ssh root@139.196.120.46 -p 23979
-          //       _proxies[_proxy.IP].ssh = `ssh root@139.196.120.46 -p ${_proxy.port}`
-          //     }
-          //   } else {
-          //     _proxies[_proxy.IP] = _proxy
-          //   }
-          // }
+
           console.log(_proxies);
 
           this.proxies = new Array();
           Object.keys(_proxies).forEach(key => {
             this.proxies.push(_proxies[key]);
           });
-          // for (let proxyStats of _proxies) {
-          //   this.proxies.push(proxyStats)
-          // }
+
           console.log(this.proxies);
         });
     }
