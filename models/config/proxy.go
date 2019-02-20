@@ -887,6 +887,7 @@ func ParseRangeSection(name string, section ini.Section) (sections map[string]in
 // otherwise just start proxies in startProxy map
 func LoadAllConfFromIni(prefix string, content string, startProxy map[string]struct{}) (
 	proxyConfs map[string]ProxyConf, visitorConfs map[string]VisitorConf, err error) {
+
 	conf, errRet := ini.Load(strings.NewReader(content))
 	if errRet != nil {
 		err = errRet

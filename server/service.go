@@ -85,10 +85,11 @@ func NewService() (svr *Service, err error) {
 			UdpPortManager: ports.NewPortManager("udp", cfg.ProxyBindAddr, cfg.AllowPorts),
 		},
 	}
+
 	// Init group controller
 	svr.rc.TcpGroupCtl = group.NewTcpGroupCtl(svr.rc.TcpPortManager)
 
-	// Init assets.
+	// Init assets
 	err = assets.Load(cfg.AssetsDir)
 	if err != nil {
 		err = fmt.Errorf("Load assets error: %v", err)
@@ -351,10 +352,11 @@ func (svr *Service) RegisterControl(ctlConn frpNet.Conn, loginMsg *msg.Login) (e
 
 	// for statistics
 	svr.statsCollector.Mark(stats.TypeNewClient, &stats.NewClientPayload{})
+
 	go func() {
 		// block until control closed
 		ctl.WaitClosed()
-		svr.ctlManager.Del(loginMsg.RunId)
+		svr.ctlManager.Del(loginMsg.RunId, ctl)
 	}()
 	return
 }

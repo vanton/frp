@@ -40,7 +40,8 @@ import (
 type ControlManager struct {
 	// controls indexed by run id
 	ctlsByRunId map[string]*Control
-	mu          sync.RWMutex
+
+	mu sync.RWMutex
 }
 
 func NewControlManager() *ControlManager {
@@ -48,9 +49,11 @@ func NewControlManager() *ControlManager {
 		ctlsByRunId: make(map[string]*Control),
 	}
 }
+
 func (cm *ControlManager) Add(runId string, ctl *Control) (oldCtl *Control) {
 	cm.mu.Lock()
 	defer cm.mu.Unlock()
+
 	oldCtl, ok := cm.ctlsByRunId[runId]
 	if ok {
 		oldCtl.Replaced(ctl)
@@ -58,11 +61,16 @@ func (cm *ControlManager) Add(runId string, ctl *Control) (oldCtl *Control) {
 	cm.ctlsByRunId[runId] = ctl
 	return
 }
-func (cm *ControlManager) Del(runId string) {
+
+// we should make sure if it's the same control to prevent delete a new one
+func (cm *ControlManager) Del(runId string, ctl *Control) {
 	cm.mu.Lock()
 	defer cm.mu.Unlock()
-	delete(cm.ctlsByRunId, runId)
+	if c, ok := cm.ctlsByRunId[runId]; ok && c == ctl {
+		delete(cm.ctlsByRunId, runId)
+	}
 }
+
 func (cm *ControlManager) GetById(runId string) (ctl *Control, ok bool) {
 	cm.mu.RLock()
 	defer cm.mu.RUnlock()
@@ -269,7 +277,7 @@ func (ctl *Control) writer() {
 	}
 	for {
 		if m, ok := <-ctl.sendCh; !ok {
-			ctl.conn.Warn("control writer is closing")
+			ctl.conn.Info("control writer is closing")
 			return
 		} else {
 			if err := msg.WriteMsg(encWriter, m); err != nil {
@@ -471,7 +479,6 @@ func (ctl *Control) RegisterProxy(pxyMsg *msg.NewProxy) (remoteAddr string, err 
 
 func (ctl *Control) CloseProxy(closeMsg *msg.CloseProxy) (err error) {
 	ctl.mu.Lock()
-
 	pxy, ok := ctl.proxies[closeMsg.ProxyName]
 	if !ok {
 		ctl.mu.Unlock()
