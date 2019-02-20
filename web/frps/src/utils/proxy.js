@@ -24,6 +24,7 @@ class TcpProxy extends BaseProxy {
         super(proxyStats)
         this.type = "tcp"
         if (proxyStats.conf != null) {
+            // this.addr = ":" + proxyStats.conf.remote_port
             this.addr = this.IP
             this.port = proxyStats.conf.remote_port
         } else {
@@ -38,6 +39,7 @@ class UdpProxy extends BaseProxy {
         super(proxyStats)
         this.type = "udp"
         if (proxyStats.conf != null) {
+            // this.addr = ":" + proxyStats.conf.remote_port
             this.addr = this.IP
             this.port = proxyStats.conf.remote_port
         } else {

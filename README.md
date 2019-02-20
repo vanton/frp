@@ -14,46 +14,49 @@ Now it also try to support p2p connect.
 
 <!-- vim-markdown-toc GFM -->
 
-* [Status](#status)
-* [Architecture](#architecture)
-* [Example Usage](#example-usage)
-    * [Access your computer in LAN by SSH](#access-your-computer-in-lan-by-ssh)
-    * [Visit your web service in LAN by custom domains](#visit-your-web-service-in-lan-by-custom-domains)
-    * [Forward DNS query request](#forward-dns-query-request)
-    * [Forward unix domain socket](#forward-unix-domain-socket)
-    * [Expose a simple http file server](#expose-a-simple-http-file-server)
-    * [Expose your service in security](#expose-your-service-in-security)
-    * [P2P Mode](#p2p-mode)
-* [Features](#features)
-    * [Configuration File](#configuration-file)
-    * [Configuration file template](#configuration-file-template)
-    * [Dashboard](#dashboard)
-    * [Authentication](#authentication)
-    * [Encryption and Compression](#encryption-and-compression)
-    * [Hot-Reload frpc configuration](#hot-reload-frpc-configuration)
-    * [Get proxy status from client](#get-proxy-status-from-client)
-    * [Port White List](#port-white-list)
-    * [Port Reuse](#port-reuse)
-    * [TCP Stream Multiplexing](#tcp-stream-multiplexing)
-    * [Support KCP Protocol](#support-kcp-protocol)
-    * [Connection Pool](#connection-pool)
-    * [Load balancing](#load-balancing)
-    * [Health Check](#health-check)
-    * [Rewriting the Host Header](#rewriting-the-host-header)
-    * [Set Headers In HTTP Request](#set-headers-in-http-request)
-    * [Get Real IP](#get-real-ip)
-    * [Password protecting your web service](#password-protecting-your-web-service)
-    * [Custom subdomain names](#custom-subdomain-names)
-    * [URL routing](#url-routing)
-    * [Connect frps by HTTP PROXY](#connect-frps-by-http-proxy)
-    * [Range ports mapping](#range-ports-mapping)
-    * [Plugin](#plugin)
-* [Development Plan](#development-plan)
-* [Contributing](#contributing)
-* [Donation](#donation)
-    * [AliPay](#alipay)
-    * [Wechat Pay](#wechat-pay)
-    * [Paypal](#paypal)
+- [frp](#frp)
+  - [What is frp?](#what-is-frp)
+  - [Table of Contents](#table-of-contents)
+  - [Status](#status)
+  - [Architecture](#architecture)
+  - [Example Usage](#example-usage)
+    - [Access your computer in LAN by SSH](#access-your-computer-in-lan-by-ssh)
+    - [Visit your web service in LAN by custom domains](#visit-your-web-service-in-lan-by-custom-domains)
+    - [Forward DNS query request](#forward-dns-query-request)
+    - [Forward unix domain socket](#forward-unix-domain-socket)
+    - [Expose a simple http file server](#expose-a-simple-http-file-server)
+    - [Expose your service in security](#expose-your-service-in-security)
+    - [P2P Mode](#p2p-mode)
+  - [Features](#features)
+    - [Configuration File](#configuration-file)
+    - [Configuration file template](#configuration-file-template)
+    - [Dashboard](#dashboard)
+    - [Authentication](#authentication)
+    - [Encryption and Compression](#encryption-and-compression)
+    - [Hot-Reload frpc configuration](#hot-reload-frpc-configuration)
+    - [Get proxy status from client](#get-proxy-status-from-client)
+    - [Port White List](#port-white-list)
+    - [Port Reuse](#port-reuse)
+    - [TCP Stream Multiplexing](#tcp-stream-multiplexing)
+    - [Support KCP Protocol](#support-kcp-protocol)
+    - [Connection Pool](#connection-pool)
+    - [Load balancing](#load-balancing)
+    - [Health Check](#health-check)
+    - [Rewriting the Host Header](#rewriting-the-host-header)
+    - [Set Headers In HTTP Request](#set-headers-in-http-request)
+    - [Get Real IP](#get-real-ip)
+    - [Password protecting your web service](#password-protecting-your-web-service)
+    - [Custom subdomain names](#custom-subdomain-names)
+    - [URL routing](#url-routing)
+    - [Connect frps by HTTP PROXY](#connect-frps-by-http-proxy)
+    - [Range ports mapping](#range-ports-mapping)
+    - [Plugin](#plugin)
+  - [Development Plan](#development-plan)
+  - [Contributing](#contributing)
+  - [Donation](#donation)
+    - [AliPay](#alipay)
+    - [Wechat Pay](#wechat-pay)
+    - [Paypal](#paypal)
 
 <!-- vim-markdown-toc -->
 
@@ -69,7 +72,7 @@ frp is under development and you can try it with latest release version. Master 
 
 ## Example Usage
 
-Firstly, download the latest programs from [Release](https://github.com/fatedier/frp/releases) page according to your os and arch.
+Firstly, download the latest programs from [Release](https://github.com/vanton/frp/releases) page according to your os and arch.
 
 Put **frps** and **frps.ini** to your server with public IP.
 
@@ -743,12 +746,12 @@ plugin_http_passwd = abc
 
 Interested in getting involved? We would like to help you!
 
-* Take a look at our [issues list](https://github.com/fatedier/frp/issues) and consider sending a Pull Request to **dev branch**.
+* Take a look at our [issues list](https://github.com/vanton/frp/issues) and consider sending a Pull Request to **dev branch**.
 * If you want to add a new feature, please create an issue first to describe the new feature, as well as the implementation approach. Once a proposal is accepted, create an implementation of the new features and submit it as a pull request.
 * Sorry for my poor english and improvement for this document is welcome even some typo fix.
 * If you have some wonderful ideas, send email to fatedier@gmail.com.
 
-**Note: We prefer you to give your advise in [issues](https://github.com/fatedier/frp/issues), so others with a same question can search it quickly and we don't need to answer them repeatly.**
+**Note: We prefer you to give your advise in [issues](https://github.com/vanton/frp/issues), so others with a same question can search it quickly and we don't need to answer them repeatly.**
 
 ## Donation
 

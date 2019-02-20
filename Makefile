@@ -6,19 +6,19 @@ build: frps frpc
 
 # compile assets into binary file
 file:
-	rm -rf ./assets/static/*
-	cp -rf ./web/frps/dist/* ./assets/static
-	go get -d github.com/rakyll/statik
-	go install github.com/rakyll/statik
-	rm -rf ./assets/statik
+	rm -rf ./assets/frps/static/*
+	rm -rf ./assets/frpc/static/*
+	cp -rf ./web/frps/dist/* ./assets/frps/static
+	cp -rf ./web/frpc/dist/* ./assets/frpc/static
+	rm -rf ./assets/frps/statik
+	rm -rf ./assets/frpc/statik
 	go generate ./assets/...
 
 fmt:
 	go fmt ./...
-	
+
 frps:
 	go build -o bin/frps ./cmd/frps
-	@cp -rf ./assets/static ./bin
 
 frpc:
 	go build -o bin/frpc ./cmd/frpc
@@ -40,4 +40,3 @@ clean:
 	rm -fr ./bin/linux_arm64
 	rm -f ./bin/frpc
 	rm -f ./bin/frps
-	cd ./tests && ./clean_test.sh && cd -

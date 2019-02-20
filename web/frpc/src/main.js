@@ -1,5 +1,5 @@
 import Vue from 'vue'
-//import ElementUI from 'element-ui'
+// import ElementUI from 'element-ui'
 import {
     Button,
     Form,
@@ -8,11 +8,11 @@ import {
     Col,
     Table,
     TableColumn,
-    Popover,
     Menu,
-    Submenu,
     MenuItem,
-    Tag
+    MessageBox,
+    Message,
+    Input
 } from 'element-ui'
 import lang from 'element-ui/lib/locale/lang/en'
 import locale from 'element-ui/lib/locale'
@@ -22,9 +22,6 @@ import './utils/less/custom.less'
 import App from './App.vue'
 import router from './router'
 import 'whatwg-fetch'
-Vue.prototype.$ELEMENT = {
-    size: 'small'
-}
 
 locale.use(lang)
 
@@ -35,11 +32,15 @@ Vue.use(Row)
 Vue.use(Col)
 Vue.use(Table)
 Vue.use(TableColumn)
-Vue.use(Popover)
 Vue.use(Menu)
-Vue.use(Submenu)
 Vue.use(MenuItem)
-Vue.use(Tag)
+Vue.use(Input)
+
+Vue.prototype.$msgbox = MessageBox;
+Vue.prototype.$confirm = MessageBox.confirm
+Vue.prototype.$message = Message
+
+//Vue.use(ElementUI)
 
 Vue.config.productionTip = false
 

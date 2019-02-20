@@ -2,7 +2,7 @@
     <div id="app">
         <header class="grid-content header-color">
             <el-row>
-                <a class="brand" href="#">frp</a>
+                <a class="brand" href="#">frp client</a>
             </el-row>
         </header>
         <section>
@@ -10,15 +10,7 @@
                 <el-col id="side-nav" :xs="24" :md="4">
                     <el-menu default-active="1" mode="vertical" theme="light" router="false" @select="handleSelect">
                         <el-menu-item index="/">Overview</el-menu-item>
-                        <el-menu-item index="/devices">Devices</el-menu-item>
-                        <el-submenu index="/proxies">
-                            <template slot="title">Proxies</template>
-                            <el-menu-item index="/proxies/tcp">TCP</el-menu-item>
-                            <el-menu-item index="/proxies/udp">UDP</el-menu-item>
-                            <el-menu-item index="/proxies/http">HTTP</el-menu-item>
-                            <el-menu-item index="/proxies/https">HTTPS</el-menu-item>
-                            <el-menu-item index="/proxies/stcp">STCP</el-menu-item>
-                        </el-submenu>
+                        <el-menu-item index="/configure">Configure</el-menu-item>
                         <el-menu-item index="">Help</el-menu-item>
                     </el-menu>
 				</el-col>
@@ -52,21 +44,21 @@
         margin: 0px;
         font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,sans-serif;
     }
-    
+
     header {
         width: 100%;
         height: 60px;
     }
-    
+
     .header-color {
-        background: #34373c;
+        background: #58B7FF;
     }
-    
+
     #content {
         margin-top: 20px;
         padding-right: 40px;
     }
-    
+
     .brand {
         color: #fff;
         background-color: transparent;
