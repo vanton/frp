@@ -68,18 +68,20 @@ var (
 	serverName        string
 	bindAddr          string
 	bindPort          int
-	kcpDoneCh         chan struct{}
+
+	kcpDoneCh chan struct{}
 )
 
 func init() {
 	rootCmd.PersistentFlags().StringVarP(&cfgFile, "", "c", "./frpc.ini", "config file of frpc")
 	rootCmd.PersistentFlags().BoolVarP(&showVersion, "version", "v", false, "version of frpc")
+
 	kcpDoneCh = make(chan struct{})
 }
 
 var rootCmd = &cobra.Command{
 	Use:   "frpc",
-	Short: "frpc is the client of frp (https://github.com/fatedier/frp)",
+	Short: "frpc is the client of frp (https://github.com/vanton/frp)",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		if showVersion {
 			fmt.Println(version.Full())
@@ -129,7 +131,6 @@ func parseClientCommonCfg(fileType int, content string) (err error) {
 }
 
 func parseClientCommonCfgFromIni(content string) (err error) {
-
 	cfg, err := config.UnmarshalClientConfFromIni(&g.GlbClientCfg.ClientCommonConf, content)
 	if err != nil {
 		return err
@@ -204,7 +205,11 @@ func startService(pxyCfgs map[string]config.ProxyConf, visitorCfgs map[string]co
 			},
 		}
 	}
-	svr := client.NewService(pxyCfgs, visitorCfgs)
+	svr, errRet := client.NewService(pxyCfgs, visitorCfgs)
+	if errRet != nil {
+		err = errRet
+		return
+	}
 
 	// Capture the exit signal if we use kcp.
 	if g.GlbClientCfg.Protocol == "kcp" {

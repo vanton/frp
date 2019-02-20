@@ -12,10 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main // "github.com/vanton/frp/cmd/frps"
+package main
 
 import (
 	"github.com/fatedier/golib/crypto"
+
+	_ "github.com/vanton/frp/assets/frps/statik"
 )
 
 func main() {

@@ -88,7 +88,7 @@ func init() {
 
 var rootCmd = &cobra.Command{
 	Use:   "frps",
-	Short: "frps is the server of frp (https://github.com/fatedier/frp)",
+	Short: "frps is the server of frp (https://github.com/vanton/frp)",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		if showVersion {
 			fmt.Println(version.Full())
@@ -146,7 +146,6 @@ func parseServerCommonCfg(fileType int, content string) (err error) {
 }
 
 func parseServerCommonCfgFromIni(content string) (err error) {
-
 	cfg, err := config.UnmarshalServerConfFromIni(&g.GlbServerCfg.ServerCommonConf, content)
 	if err != nil {
 		return err
