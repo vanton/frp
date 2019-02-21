@@ -136,16 +136,16 @@ type Control struct {
 }
 
 func NewControl(rc *controller.ResourceController, pxyManager *proxy.ProxyManager,
-	statsCollector stats.Collector, ctlConn net.Conn, loginMsg *msg.Login, IP string) *Control {
+	statsCollector stats.Collector, ctlConn net.Conn, loginMsg *msg.Login) *Control {
 	// NOTE IP
 	return &Control{
 		rc:              rc,
 		pxyManager:      pxyManager,
 		statsCollector:  statsCollector,
 		conn:            ctlConn,
-		IP:              IP,
-		loginMsg:        loginMsg,
+		IP:              ctlConn.RemoteAddr().String(),
 		Version:         loginMsg.Version,
+		loginMsg:        loginMsg,
 		sendCh:          make(chan msg.Message, 10),
 		readCh:          make(chan msg.Message, 10),
 		workConnCh:      make(chan net.Conn, loginMsg.PoolCount+10),
@@ -253,7 +253,7 @@ func (ctl *Control) GetWorkConn() (workConn net.Conn, err error) {
 }
 
 func (ctl *Control) Replaced(newCtl *Control) {
-	ctl.conn.Info("Replaced by client [%s]", newCtl.runId)
+	ctl.conn.Warn("Replaced by client [%s]", newCtl.runId)
 	ctl.runId = ""
 	ctl.allShutdown.Start()
 }
@@ -401,6 +401,9 @@ func (ctl *Control) manager() {
 				} else {
 					resp.RemoteAddr = remoteAddr
 					ctl.conn.Info("new proxy [%s] success", m.ProxyName)
+					// NOTE IP
+					ctl.IP = ctl.conn.RemoteAddr().String()
+					ctl.Version = ctl.loginMsg.Version
 					ctl.statsCollector.Mark(stats.TypeNewProxy, &stats.NewProxyPayload{
 						Name:      m.ProxyName,
 						ProxyType: m.ProxyType,
