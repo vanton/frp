@@ -61,7 +61,8 @@ func (collector *internalCollector) ClearUselessInfo() {
 	collector.mu.Lock()
 	defer collector.mu.Unlock()
 	for name, data := range collector.info.ProxyStatistics {
-		if !data.LastCloseTime.IsZero() && time.Since(data.LastCloseTime) > time.Duration(7*24)*time.Hour {
+		// NOTE 下线删除 closed than 1 day and drop them
+		if !data.LastCloseTime.IsZero() && time.Since(data.LastCloseTime) > time.Duration(1*24)*time.Hour {
 			delete(collector.info.ProxyStatistics, name)
 			log.Trace("clear proxy [%s]'s statistics data, lastCloseTime: [%s]", name, data.LastCloseTime.String())
 		}
@@ -206,6 +207,7 @@ func (collector *internalCollector) GetServer() *ServerStats {
 }
 
 func (collector *internalCollector) GetProxiesByType(proxyType string) []*ProxyStats {
+	// NOTE 实际列表 GetProxiesByType
 	res := make([]*ProxyStats, 0)
 	collector.mu.Lock()
 	defer collector.mu.Unlock()
