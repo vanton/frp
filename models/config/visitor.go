@@ -73,6 +73,7 @@ func NewVisitorConfFromIni(prefix string, name string, section ini.Section) (cfg
 type BaseVisitorConf struct {
 	ProxyName      string `json:"proxy_name"`
 	ProxyType      string `json:"proxy_type"`
+	City           string `json:"City"`
 	UseEncryption  bool   `json:"use_encryption"`
 	UseCompression bool   `json:"use_compression"`
 	Role           string `json:"role"`

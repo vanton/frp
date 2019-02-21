@@ -101,6 +101,7 @@ func NewProxyConfFromIni(prefix string, name string, section ini.Section) (cfg P
 type BaseProxyConf struct {
 	ProxyName string `json:"proxy_name"`
 	ProxyType string `json:"proxy_type"`
+	City      string `json:"City"`
 
 	UseEncryption  bool   `json:"use_encryption"`
 	UseCompression bool   `json:"use_compression"`
@@ -136,6 +137,7 @@ func (cfg *BaseProxyConf) compare(cmp *BaseProxyConf) bool {
 func (cfg *BaseProxyConf) UnmarshalFromMsg(pMsg *msg.NewProxy) {
 	cfg.ProxyName = pMsg.ProxyName
 	cfg.ProxyType = pMsg.ProxyType
+	cfg.City = pMsg.City
 	cfg.UseEncryption = pMsg.UseEncryption
 	cfg.UseCompression = pMsg.UseCompression
 	cfg.Group = pMsg.Group
@@ -149,6 +151,7 @@ func (cfg *BaseProxyConf) UnmarshalFromIni(prefix string, name string, section i
 	)
 	cfg.ProxyName = prefix + name
 	cfg.ProxyType = section["type"]
+	cfg.City = section["city"]
 
 	tmpStr, ok = section["use_encryption"]
 	if ok && tmpStr == "true" {
@@ -187,6 +190,7 @@ func (cfg *BaseProxyConf) UnmarshalFromIni(prefix string, name string, section i
 func (cfg *BaseProxyConf) MarshalToMsg(pMsg *msg.NewProxy) {
 	pMsg.ProxyName = cfg.ProxyName
 	pMsg.ProxyType = cfg.ProxyType
+	pMsg.City = cfg.City
 	pMsg.UseEncryption = cfg.UseEncryption
 	pMsg.UseCompression = cfg.UseCompression
 	pMsg.Group = cfg.Group

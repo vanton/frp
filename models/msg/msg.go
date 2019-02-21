@@ -84,6 +84,7 @@ type LoginResp struct {
 type NewProxy struct {
 	ProxyName      string `json:"proxy_name"`
 	ProxyType      string `json:"proxy_type"`
+	City           string `json:"City"`
 	UseEncryption  bool   `json:"use_encryption"`
 	UseCompression bool   `json:"use_compression"`
 	Group          string `json:"group"`
