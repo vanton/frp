@@ -126,6 +126,8 @@ func (collector *internalCollector) newProxy(payload *NewProxyPayload) {
 		}
 		collector.info.ProxyStatistics[payload.Name] = proxyStats
 	}
+	proxyStats.IP = payload.IP
+	proxyStats.Version = payload.Version
 	proxyStats.LastStartTime = time.Now()
 }
 
