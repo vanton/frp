@@ -47,6 +47,7 @@ func NewInternalCollector(enable bool) Collector {
 func (collector *internalCollector) Run() error {
 	go func() {
 		for {
+			// NOTE 未生效！回收下线设备，默认 12 * time.Hour
 			time.Sleep(12 * time.Hour)
 			log.Debug("start to clear useless proxy statistics data...")
 			collector.ClearUselessInfo()
@@ -129,6 +130,16 @@ func (collector *internalCollector) newProxy(payload *NewProxyPayload) {
 	proxyStats.IP = payload.IP
 	proxyStats.Version = payload.Version
 	proxyStats.LastStartTime = time.Now()
+
+	// NOTE 回收下线设备，test
+	go func() {
+		for {
+			time.Sleep(1 * time.Minute)
+			log.Debug("start to clear useless proxy statistics data...")
+			collector.ClearUselessInfo()
+			log.Debug("finish to clear useless proxy statistics data")
+		}
+	}()
 }
 
 func (collector *internalCollector) closeProxy(payload *CloseProxyPayload) {
