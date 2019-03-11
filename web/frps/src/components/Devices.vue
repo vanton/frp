@@ -59,6 +59,9 @@
             <el-form-item label="Version">
               <span>{{ props.row.version }}</span>
             </el-form-item>
+            <el-form-item label="Admin">
+              <span>{{ props.row.admin }}</span>
+            </el-form-item>
           </el-form>
         </template>
       </el-table-column>
@@ -94,6 +97,10 @@ export default {
   },
   created() {
     this.fetchData();
+    // NOTE 一分钟更新数据
+    setInterval(() => {
+      this.fetchData();
+    }, 60 * 1000);
   },
   watch: {
     $route: "fetchData"
@@ -162,12 +169,20 @@ export default {
             return this.replace(reg, "");
           };
 
+          // 服务器 IP, 后期需要动态配置
+          const server_ip = "139.196.120.46";
           jj.forEach(_proxyStats => {
             let _proxy = new TcpProxy(_proxyStats);
-            let _id = _proxy.name.RTrim("_ssh");
+            let _id;
+            // 合并 ssh 及 admin
+            _id = _proxy.name.RTrim("_ssh");
+            _id = _id.RTrim("_admin");
 
             if (!!_proxies[_id]) {
-              if (_proxy.name.indexOf("_ssh") == -1) {
+              if (
+                _proxy.name.indexOf("_ssh") == -1 &&
+                _proxy.name.indexOf("_admin") == -1
+              ) {
                 _proxies[_id].name = _proxy.name;
                 _proxies[_id].port = _proxy.port;
               }
@@ -175,9 +190,24 @@ export default {
               _proxies[_id] = _proxy;
             }
 
+            // ssh 及 admin 显示
             if (_proxy.name.indexOf("_ssh") > 0) {
               // ssh root@139.196.120.46 -p 23979
-              _proxies[_id].ssh = "ssh root@139.196.120.46 -p " + _proxy.port;
+              if (_proxy.port) {
+                _proxies[_id].ssh =
+                  "ssh root@" + server_ip + " -p " + _proxy.port;
+              } else {
+                _proxies[_id].ssh = "";
+              }
+            }
+
+            if (_proxy.name.indexOf("_admin") > 0) {
+              // ssh root@139.196.120.46 -p 23979
+              if (_proxy.port) {
+                _proxies[_id].admin = "http://" + server_ip + ":" + _proxy.port;
+              } else {
+                _proxies[_id].admin = "";
+              }
             }
           });
 
