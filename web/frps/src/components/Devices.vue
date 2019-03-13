@@ -59,6 +59,9 @@
             <el-form-item label="Version">
               <span>{{ props.row.version }}</span>
             </el-form-item>
+            <el-form-item label="City">
+              <span>{{ props.row.City }}</span>
+            </el-form-item>
             <el-form-item label="Admin">
               <span>{{ props.row.admin }}</span>
             </el-form-item>
