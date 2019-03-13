@@ -193,10 +193,6 @@ export default {
               _proxies[_id] = _proxy;
             }
 
-            if (_proxy.conf && _proxy.conf.City) {
-              _proxies[_id].City = _proxy.conf.City;
-            }
-
             // ssh 及 admin 显示
             if (_proxy.name.indexOf("_ssh") > 0) {
               // ssh root@139.196.120.46 -p 23979

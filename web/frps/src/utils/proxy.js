@@ -6,9 +6,11 @@ class BaseProxy {
         if (proxyStats.conf != null) {
             this.encryption = proxyStats.conf.use_encryption
             this.compression = proxyStats.conf.use_compression
+            this.City = proxyStats.conf.City
         } else {
             this.encryption = ""
             this.compression = ""
+            this.City = ""
         }
         this.conns = proxyStats.cur_conns
         this.traffic_in = proxyStats.today_traffic_in
