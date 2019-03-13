@@ -31,3 +31,7 @@ test/bin/
 # Cache
 *.swp
 server/bak
+frpc.ini
+frpc.log
+ini/log
+ip.http

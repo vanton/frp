@@ -2,6 +2,10 @@ package proxy
 
 import (
 	"fmt"
+	"io/ioutil"
+	"net/http"
+	"regexp"
+	"strings"
 	"sync"
 
 	"github.com/vanton/frp/client/event"
@@ -100,6 +104,10 @@ func (pm *ProxyManager) Reload(pxyCfgs map[string]config.ProxyConf) {
 	pm.mu.Lock()
 	defer pm.mu.Unlock()
 
+	// NOTE 获取 city code
+	city := pm.GetCity()
+	fmt.Println("GetCity:", city)
+
 	delPxyNames := make([]string, 0)
 	for name, pxy := range pm.proxies {
 		del := false
@@ -126,6 +134,12 @@ func (pm *ProxyManager) Reload(pxyCfgs map[string]config.ProxyConf) {
 	addPxyNames := make([]string, 0)
 	for name, cfg := range pxyCfgs {
 		if _, ok := pm.proxies[name]; !ok {
+			// NOTE 设置 city code
+			city := pm.GetCity()
+			// fmt.Println(city)
+			cfg.SetCity(city)
+			// fmt.Println(cfg)
+
 			pxy := NewProxyWrapper(cfg, pm.HandleEvent, pm.logPrefix)
 			pm.proxies[name] = pxy
 			addPxyNames = append(addPxyNames, name)
@@ -136,4 +150,31 @@ func (pm *ProxyManager) Reload(pxyCfgs map[string]config.ProxyConf) {
 	if len(addPxyNames) > 0 {
 		pm.Info("proxy added: %v", addPxyNames)
 	}
+}
+
+func (pm *ProxyManager) GetCity() string {
+	// NOTE 获取 city code
+	res, err := http.Get("http://pv.sohu.com/cityjson?ie=utf-8")
+
+	if err != nil {
+		fmt.Println("Fatal error ", err.Error())
+	}
+
+	defer res.Body.Close()
+
+	content, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		fmt.Println("Fatal error ", err.Error())
+	}
+
+	// fmt.Println(string(content))
+	// NOTE 解析 content
+	str := strings.ToLower(string(content))
+	if strings.Index(str, "cid") > -1 {
+		reg := regexp.MustCompile(`[\d]+`)
+		citys := reg.FindAllString(strings.Split(str, "cid")[1], -1)
+		// fmt.Println(citys)
+		return citys[0]
+	}
+	return ""
 }

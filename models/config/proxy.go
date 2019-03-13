@@ -53,6 +53,7 @@ func NewConfByType(proxyType string) ProxyConf {
 }
 
 type ProxyConf interface {
+	SetCity(city string)
 	GetBaseInfo() *BaseProxyConf
 	UnmarshalFromMsg(pMsg *msg.NewProxy)
 	UnmarshalFromIni(prefix string, name string, conf ini.Section) error
@@ -110,6 +111,11 @@ type BaseProxyConf struct {
 
 	LocalSvrConf
 	HealthCheckConf // only used for client
+}
+
+func (cfg *BaseProxyConf) SetCity(city string) {
+	// NOTE 设置 city code
+	cfg.City = city
 }
 
 func (cfg *BaseProxyConf) GetBaseInfo() *BaseProxyConf {
