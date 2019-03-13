@@ -172,9 +172,9 @@ func (pm *ProxyManager) GetCity() string {
 	str := strings.ToLower(string(content))
 	fmt.Println("IP:", str)
 	if strings.Index(str, "cid") > -1 {
-		reg := regexp.MustCompile(`[\d]+`)
+		reg := regexp.MustCompile(`[\d\w]+`)
 		citys := reg.FindAllString(strings.Split(str, "cid")[1], -1)
-		// fmt.Println(citys)
+		fmt.Println(citys)
 		if len(citys) > 0 {
 			return citys[0]
 		}
