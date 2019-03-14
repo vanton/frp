@@ -268,6 +268,9 @@ func (bl *BeeLogger) writeMsg(logLevel int, msg string, v ...interface{}) error 
 		msg = fmt.Sprintf(msg, v...)
 	}
 	when := time.Now()
+
+	fmt.Println(when)
+
 	if bl.enableFuncCallDepth {
 		_, file, line, ok := runtime.Caller(bl.loggerFuncCallDepth)
 		if !ok {
