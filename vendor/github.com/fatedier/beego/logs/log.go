@@ -268,6 +268,7 @@ func (bl *BeeLogger) writeMsg(logLevel int, msg string, v ...interface{}) error 
 		msg = fmt.Sprintf(msg, v...)
 	}
 
+	// NOTE 时区修正 Asia/Shanghai
 	local2, err2 := time.LoadLocation("Asia/Shanghai")
 	if err2 != nil {
 		fmt.Println(err2)
@@ -277,7 +278,7 @@ func (bl *BeeLogger) writeMsg(logLevel int, msg string, v ...interface{}) error 
 
 	// FIXME 测试时间
 	// local2, err2 := time.LoadLocation("Local")
-	fmt.Println(local2, when)
+	// fmt.Println(local2, when)
 
 	if bl.enableFuncCallDepth {
 		_, file, line, ok := runtime.Caller(bl.loggerFuncCallDepth)
