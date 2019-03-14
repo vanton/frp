@@ -267,15 +267,17 @@ func (bl *BeeLogger) writeMsg(logLevel int, msg string, v ...interface{}) error 
 	if len(v) > 0 {
 		msg = fmt.Sprintf(msg, v...)
 	}
-	when := time.Now()
+
+	local2, err2 := time.LoadLocation("Asia/Shanghai")
+	if err2 != nil {
+		fmt.Println(err2)
+	}
+
+	when := time.Now().In(local2)
 
 	// FIXME 测试时间
-	fmt.Println(when)
-	local2, err2 := time.LoadLocation("Local")
-	if err2 != nil {
-        fmt.Println(err2)
-	}
-	fmt.Println(when.In(local2))
+	// local2, err2 := time.LoadLocation("Local")
+	fmt.Println(local2, when)
 
 	if bl.enableFuncCallDepth {
 		_, file, line, ok := runtime.Caller(bl.loggerFuncCallDepth)
