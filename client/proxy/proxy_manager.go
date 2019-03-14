@@ -161,7 +161,7 @@ func (pm *ProxyManager) GetCity() string {
 		return ""
 	}
 
-	// TODO 网络失败，导致 crash
+	// NOTE 网络失败，异常处理
 	defer res.Body.Close()
 
 	content, err := ioutil.ReadAll(res.Body)
