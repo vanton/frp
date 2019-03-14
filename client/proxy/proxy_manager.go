@@ -158,13 +158,16 @@ func (pm *ProxyManager) GetCity() string {
 
 	if err != nil {
 		fmt.Println("Fatal error ", err.Error())
+		return ""
 	}
 
+	// TODO 网络失败，导致 crash
 	defer res.Body.Close()
 
 	content, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println("Fatal error ", err.Error())
+		return ""
 	}
 
 	// fmt.Println(string(content))
